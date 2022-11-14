@@ -12,6 +12,8 @@
 */
 
 // WEBSITE
+use Illuminate\Support\Facades\Route;
+
 Route::group(['namespace' => 'Web'], function () {
     /**
      * DISABLE ADMIN PANEL

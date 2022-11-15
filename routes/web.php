@@ -209,6 +209,36 @@ Route::group([
             Route::post('/restore', 'BannerController@restore')->name('admin.banner.restore');
         });
 
+        // CATEGORY
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/', 'CategoryController@list')->name('admin.category.list');
+            Route::get('/get-data', 'CategoryController@get_data')->name('admin.category.get_data');
+            Route::get('/create', 'CategoryController@create')->name('admin.category.create');
+            Route::post('/do-create', 'CategoryController@do_create')->name('admin.category.do_create');
+            Route::get('/edit/{id}', 'CategoryController@edit')->name('admin.category.edit');
+            Route::post('/do-edit/{id}', 'CategoryController@do_edit')->name('admin.category.do_edit');
+            Route::post('/sorting', 'CategoryController@sorting')->name('admin.category.sorting');
+            Route::post('/delete', 'CategoryController@delete')->name('admin.category.delete');
+            Route::get('/deleted', 'CategoryController@list_deleted')->name('admin.category.deleted');
+            Route::get('/get-data-deleted', 'CategoryController@get_data_deleted')->name('admin.category.get_data_deleted');
+            Route::post('/restore', 'CategoryController@restore')->name('admin.category.restore');
+        });
+
+        // PROJECT
+        Route::group(['prefix' => 'project'], function () {
+            Route::get('/', 'ProjectController@list')->name('admin.project.list');
+            Route::get('/get-data', 'ProjectController@get_data')->name('admin.project.get_data');
+            Route::get('/create', 'ProjectController@create')->name('admin.project.create');
+            Route::post('/do-create', 'ProjectController@do_create')->name('admin.project.do_create');
+            Route::get('/edit/{id}', 'ProjectController@edit')->name('admin.project.edit');
+            Route::post('/do-edit/{id}', 'ProjectController@do_edit')->name('admin.project.do_edit');
+            Route::post('/sorting', 'ProjectController@sorting')->name('admin.project.sorting');
+            Route::post('/delete', 'ProjectController@delete')->name('admin.project.delete');
+            Route::get('/deleted', 'ProjectController@list_deleted')->name('admin.project.deleted');
+            Route::get('/get-data-deleted', 'ProjectController@get_data_deleted')->name('admin.project.get_data_deleted');
+            Route::post('/restore', 'ProjectController@restore')->name('admin.project.restore');
+        });
+
         // PRODUCT
         Route::group(['prefix' => 'product'], function () {
             Route::get('/', 'ProductController@list')->name('admin.product.list');

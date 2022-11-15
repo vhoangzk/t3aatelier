@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -17,6 +18,7 @@ use App\Libraries\Helper;
 
 // MODELS
 use App\Models\system\SysUser;
+use stdClass;
 
 class Controller extends BaseController
 {
@@ -31,15 +33,17 @@ class Controller extends BaseController
     // variable for save global config
     public $global_config;
 
+    protected $module;
+
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            
+
             if (Session::has('admin')) {
                 // GET USER DATA
                 $user_session = Session::get('admin');
                 $user_data = SysUser::find($user_session->id);
-                
+
                 // if password has been changed, then force user to re-login
 				$auth = Helper::generate_token($user_data->password);
 				$token_db = Helper::validate_token($auth);
@@ -49,7 +53,7 @@ class Controller extends BaseController
 					Session::flush();
                     return redirect()->route('admin.login')->with('info', lang('Your password has been changed, please re-login'));
                 }
-                
+
                 if($user_data->force_logout){
                     // FORCE LOGOUT FROM ALL SESSIONS
 					Session::flush();
@@ -94,7 +98,7 @@ class Controller extends BaseController
 
                 // convert to single array
                 foreach ($getLanguages as $list) {
-                    $obj = new \stdClass();
+                    $obj = new stdClass();
                     $obj->alias = $list->alias;
                     $obj->name = $list->name;
                     $languages[$list->id] = $obj;
@@ -106,7 +110,7 @@ class Controller extends BaseController
             $this->languages = $languages;
 
             // get global config data
-            $global_config = new \stdClass();
+            $global_config = new stdClass();
             $global_config->app_name = env('APP_NAME');
             $global_config->app_version = env('APP_VERSION');
             $global_config->app_url_site = env('APP_URL_SITE');
@@ -121,7 +125,7 @@ class Controller extends BaseController
             $global_config->meta_description = env('META_DESCRIPTION');
             $global_config->meta_author = env('META_AUTHOR');
             $global_config->meta_keywords = '';
-            
+
             if (env('APP_BACKEND', 'MODEL') != 'API') {
                 $global_config = DB::table('sys_config')->first();
             }
@@ -149,10 +153,10 @@ class Controller extends BaseController
 
     /**
      * Guzzle GET Public Access (without token Authorization Bearer)
-     * 
+     *
      * @param String $url (Target API URL) required
      * @param Array $auth (htaccess auth) optional
-     * 
+     *
      * @return Object (API Response)
      */
     protected function guzzle_get_public($url, $auth = null)
@@ -173,11 +177,11 @@ class Controller extends BaseController
 
     /**
      * Guzzle POST Public Access (without token Authorization Bearer)
-     * 
+     *
      * @param String $url (Target API URL) required
      * @param Array $parameter (Paramaters) required
      * @param Array $auth (htaccess auth) optional
-     * 
+     *
      * @return Object (API Response)
      */
     protected function guzzle_post_public($url, $parameter, $auth = null)
@@ -198,11 +202,11 @@ class Controller extends BaseController
 
     /**
      * Guzzle GET with token Authorization Bearer
-     * 
+     *
      * @param String $url (Target API URL) required
      * @param String $token (Token Authorization Bearer) required
      * @param Array $auth (htaccess auth) optional
-     * 
+     *
      * @return Object (API Response)
      */
     protected function guzzle_get($url, $token, $auth = null)
@@ -228,12 +232,12 @@ class Controller extends BaseController
 
     /**
      * Guzzle POST with token Authorization Bearer
-     * 
+     *
      * @param String $url (Target API URL) required
      * @param String $token (Token Authorization Bearer) required
      * @param Array $parameter (Paramaters) required
      * @param Array $auth (htaccess auth) optional
-     * 
+     *
      * @return Object (API Response)
      */
     protected function guzzle_post($url, $token, $parameter, $auth = null)
@@ -259,12 +263,12 @@ class Controller extends BaseController
 
     /**
      * Guzzle POST file with token Authorization Bearer
-     * 
+     *
      * @param String $url (Target API URL) required
      * @param String $token (Token Authorization Bearer) required
      * @param Array $parameter (Paramaters) required
      * @param Array $auth (htaccess auth) optional
-     * 
+     *
      * @return Object (API Response)
      */
     // *Sample:
@@ -298,6 +302,20 @@ class Controller extends BaseController
             $response = $request->getBody()->getContents();
 
             return json_decode($response);
+        }
+    }
+
+    /**
+     * @param $module_name
+     * @param $rule_name
+     * @return RedirectResponse
+     */
+    protected function authorizing($rule_name, $module_name = '') {
+        // AUTHORIZING...
+        $module = (!empty($module_name)) ? $module_name : $this->module;
+        $authorize = Helper::authorizing($module, $rule_name);
+        if ($authorize['status'] != 'true') {
+            return back()->with('error', $authorize['message']);
         }
     }
 }

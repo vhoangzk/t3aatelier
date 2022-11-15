@@ -1,48 +1,32 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
+use App\Libraries\Helper;
+use App\Models\Category;
+use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-// LIBRARIES
-use App\Libraries\Helper;
-
-// MODELS
-use App\Models\Banner;
-
-class BannerController extends Controller
+class CategoryController extends Controller
 {
-    // SET THIS MODULE
-    protected $module = 'Banner';
-    // SET THIS OBJECT/ITEM NAME
-    private $item = 'banner';
+    protected $module = 'Category';
+    private $item = 'category';
 
-    public function list()
-    {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'View List');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+    public function list() {
+        parent::authorizing('View List');
 
-        // FOR DISPLAY ACTIVE DATA
-        $data = true;
+        $data = CategoryService::getList();
 
-        return view('admin.banner.list', compact('data'));
+        return view('admin.category.list', compact('data'));
     }
 
     public function get_data(Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'View List');
-        if ($authorize['status'] != 'true') {
-            return response()->json([
-                'status' => 'false',
-                'message' => $authorize['message']
-            ]);
-        }
+        parent::authorizing('View List');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -61,7 +45,7 @@ class BannerController extends Controller
         }
 
         // GET THE DATA
-        $query = Banner::whereNotNull('id');
+        $query = Category::query()->whereNotNull('id');
 
         // PROVIDE THE DATA
         $data = $query->orderBy('ordinal')->get();
@@ -72,47 +56,41 @@ class BannerController extends Controller
                 $item->created_at_edited = date('Y-m-d H:i:s');
                 $item->updated_at_edited = Helper::time_ago(strtotime($item->updated_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
                 $item->deleted_at_edited = Helper::time_ago(strtotime($item->deleted_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
-                $item->image_item = asset($item->image);
             }
         }
+
+        // GET HTML
+        $html = view('admin.category.table', compact('data'))->render();
 
         // SUCCESS
         $response = [
             'status' => 'true',
             'message' => 'Successfully get data list',
-            'data' => $data
+            'html' => $html,
         ];
-        return response()->json($response, 200);
+        return response()->json($response);
     }
 
     public function create()
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Add New');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Add New');
 
-        return view('admin.banner.form');
+        return view('admin.category.form');
     }
 
     public function do_create(Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Add New');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Add New');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
 
         // INSERT NEW DATA
-        $data = new Banner();
+        $data = new Category();
 
         // LARAVEL VALIDATION
         $validation = [
-            'image' => 'required|image'
+            'name' => 'required|max:191'
         ];
         $message = [
             'required' => ':attribute ' . lang('field is required', $this->translation)
@@ -122,26 +100,11 @@ class BannerController extends Controller
         ];
         $this->validate($request, $validation, $message, $names);
 
-        // HELPER VALIDATION FOR PREVENT SQL INJECTION & XSS ATTACK
-        // PROCESSING IMAGE
-        $dir_path = 'uploads/banner/';
-        $image_file = $request->file('image');
-        $format_image_name = time() . '-banner';
-        $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
-        if ($image['status'] != 'true') {
-            return back()
-                ->withInput()
-                ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
-        }
-        // GET THE UPLOADED IMAGE RESULT
-        $data->image = $dir_path . $image['data'];
-
-        $data->title = Helper::validate_input_text($request->title);
-        $data->description = Helper::validate_input_text($request->description);
+        $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
 
         // SET ORDER / ORDINAL
-        $last = Banner::select('ordinal')->orderBy('ordinal', 'desc')->first();
+        $last = Category::query()->select('ordinal')->orderBy('ordinal', 'desc')->first();
         $ordinal = 1;
         if ($last) {
             $ordinal = $last->ordinal + 1;
@@ -152,7 +115,7 @@ class BannerController extends Controller
         if ($data->save()) {
             // SUCCESS
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('success', lang('Successfully added a new #item', $this->translation, ['#item' => $this->item]));
         }
 
@@ -164,11 +127,8 @@ class BannerController extends Controller
 
     public function edit($id)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'View Details');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+
+        parent::authorizing('View Details');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -177,31 +137,27 @@ class BannerController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Banner::find($id);
+        $data = Category::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
-        return view('admin.banner.form', compact('data'));
+        return view('admin.category.form', compact('data'));
     }
 
     public function do_edit($id, Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Edit');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Edit');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -210,12 +166,12 @@ class BannerController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Banner::find($id);
+        $data = Category::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
@@ -228,43 +184,26 @@ class BannerController extends Controller
         // LARAVEL VALIDATION
         if ($request->image) {
             $validation = [
-                'image' => 'required|image'
+                'name' => 'required|max:191'
             ];
             $message = [
                 'required' => ':attribute ' . lang('field is required', $this->translation)
             ];
             $names = [
-                'image' => ucwords(lang('image', $this->translation))
+                'image' => ucwords(lang('name', $this->translation))
             ];
             $this->validate($request, $validation, $message, $names);
         }
 
         // HELPER VALIDATION FOR PREVENT SQL INJECTION & XSS ATTACK
-        // IF UPLOAD NEW IMAGE
-        if ($request->image) {
-            // PROCESSING IMAGE
-            $dir_path = 'uploads/banner/';
-            $image_file = $request->file('image');
-            $format_image_name = time() . '-banner';
-            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
-            if ($image['status'] != 'true') {
-                return back()
-                    ->withInput()
-                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
-            }
-            // GET THE UPLOADED IMAGE RESULT
-            $data->image = $dir_path . $image['data'];
-        }
-
-        $data->title = Helper::validate_input_text($request->title);
-        $data->description = Helper::validate_input_text($request->description);
+        $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
 
         // UPDATE THE DATA
         if ($data->save()) {
             // SUCCESS
             return redirect()
-                ->route('admin.banner.edit', $id)
+                ->route('admin.category.edit', $id)
                 ->with('success', lang('Successfully updated #item', $this->translation, ['#item' => $this->item]));
         }
 
@@ -302,7 +241,7 @@ class BannerController extends Controller
             // split the data
             $tmp = explode('[]=', $item);
 
-            $object = Banner::find($tmp[1]);
+            $object = Category::query()->find($tmp[1]);
             $object->ordinal = $ordinal;
             $object->save();
 
@@ -320,11 +259,7 @@ class BannerController extends Controller
 
     public function delete(Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Delete');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Delete');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -335,18 +270,18 @@ class BannerController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Banner::find($id);
+        $data = Category::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
@@ -354,7 +289,7 @@ class BannerController extends Controller
         if ($data->delete()) {
             // SUCCESS
             return redirect()
-                ->route('admin.banner.list')
+                ->route('admin.category.list')
                 ->with('success', lang('Successfully deleted #item', $this->translation, ['#item' => $this->item]));
         }
 
@@ -365,13 +300,9 @@ class BannerController extends Controller
 
     public function list_deleted()
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Restore');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Restore');
 
-        return view('admin.banner.list');
+        return view('admin.category.list');
     }
 
     public function get_data_deleted(Request $request)
@@ -402,7 +333,7 @@ class BannerController extends Controller
         }
 
         // GET THE DATA
-        $query = Banner::onlyTrashed();
+        $query = Category::onlyTrashed();
 
         // PROVIDE THE DATA
         $data = $query->orderBy('ordinal')->get();
@@ -413,26 +344,25 @@ class BannerController extends Controller
                 $item->created_at_edited = date('Y-m-d H:i:s');
                 $item->updated_at_edited = Helper::time_ago(strtotime($item->updated_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
                 $item->deleted_at_edited = Helper::time_ago(strtotime($item->deleted_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
-                $item->image_item = asset($item->image);
             }
         }
+
+        // GET HTML
+        $restore = true;
+        $html = view('admin.category.table', compact('data', 'restore'))->render();
 
         // SUCCESS
         $response = [
             'status' => 'true',
             'message' => 'Successfully get data list',
-            'data' => $data
+            'html' => $html
         ];
-        return response()->json($response, 200);
+        return response()->json($response);
     }
 
     public function restore(Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'Restore');
-        if ($authorize['status'] != 'true') {
-            return back()->with('error', $authorize['message']);
-        }
+        parent::authorizing('Restore');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -443,18 +373,18 @@ class BannerController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.banner.deleted')
+                ->route('admin.category.deleted')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Banner::onlyTrashed()->find($id);
+        $data = Category::onlyTrashed()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.banner.deleted')
+                ->route('admin.category.deleted')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
@@ -462,7 +392,7 @@ class BannerController extends Controller
         if ($data->restore()) {
             // SUCCESS
             return redirect()
-                ->route('admin.banner.deleted')
+                ->route('admin.category.deleted')
                 ->with('success', lang('Successfully restored #item', $this->translation, ['#item' => $this->item]));
         }
 

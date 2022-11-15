@@ -34,37 +34,37 @@
                     </a>
                 </li>
             @endif
-            
-            @if (Helper::authorizing('Product', 'View List')['status'] == 'true')
+
+            @if (Helper::authorizing('Category', 'View List')['status'] == 'true')
                 @php
                     $menu_active = '';
-                    if(Helper::is_menu_active('/product/')){
+                    if(Helper::is_menu_active('/category/')){
                         $menu_active = 'current-page';
                     }
                 @endphp
                 <li class="{{ $menu_active }}">
-                    <a href="{{ route('admin.product.list') }}">
-                        <i class="fa fa-cubes"></i> {{ ucwords(lang('product', $translation)) }}
+                    <a href="{{ route('admin.category.list') }}">
+                        <i class="fa fa-bars"></i> {{ ucwords(lang('category', $translation)) }}
                     </a>
                 </li>
             @endif
 
-            @if (Helper::authorizing('Article', 'View List')['status'] == 'true')
-                <li>
-                    <a><i class="fa fa-newspaper-o"></i> {{ ucwords(lang('article', $translation)) }} <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        @if (Helper::authorizing('Topic', 'View List')['status'] == 'true')
-                            <li><a href="{{ route('admin.topic.list') }}">{{ ucwords(lang('topic', $translation)) }}</a></li>
-                        @endif
-                        @if (Helper::authorizing('Article', 'View List')['status'] == 'true')
-                            <li><a href="{{ route('admin.article.list') }}">{{ ucwords(lang('article', $translation)) }}</a></li>
-                        @endif
-                    </ul>
+            @if (Helper::authorizing('Project', 'View List')['status'] == 'true')
+                @php
+                    $menu_active = '';
+                    if(Helper::is_menu_active('/project/')){
+                        $menu_active = 'current-page';
+                    }
+                @endphp
+                <li class="{{ $menu_active }}">
+                    <a href="{{ route('admin.project.list') }}">
+                        <i class="fa fa-clipboard"></i> {{ ucwords(lang('project', $translation)) }}
+                    </a>
                 </li>
             @endif
         </ul>
     </div>
-    
+
     @php
         $priv_admin = 0;
     @endphp
@@ -113,13 +113,13 @@
                 </li>
                 @if(Helper::is_menu_active('/system/dictionary/') || Helper::is_menu_active('/system/language/'))
                     <script>
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                             document.getElementById('menu-language').click();
                         }, 1000);
                     </script>
                 @endif
             @endif
-            
+
             @if (Helper::authorizing('User', 'View List')['status'] == 'true')
                 @php
                     $priv_admin++;

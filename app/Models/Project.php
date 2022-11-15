@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Banner extends Model
+class Project extends Model
 {
     use SoftDeletes;
 
@@ -17,7 +17,7 @@ class Banner extends Model
      *
      * @var string
      */
-    protected $table = 'banners';
+    protected $table = 'projects';
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,12 @@ class Banner extends Model
      * @var array
      */
     protected $fillable = [
-        'image', 'title', 'description', 'status', 'ordinal', 'created_at', 'updated_at', 'deleted_at'
+        'category_id',
+        'name',
+        'thumbnail',
+        'banner',
+        'meta_data',
+        'content',
+        'status',
     ];
 }

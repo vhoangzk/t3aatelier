@@ -20,7 +20,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Product';
+    protected $module = 'Product';
 
     // SET THIS OBJECT/ITEM NAME
     private $item = 'product';

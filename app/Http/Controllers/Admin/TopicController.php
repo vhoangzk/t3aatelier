@@ -15,7 +15,7 @@ use App\Models\Topic;
 class TopicController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Topic';
+    protected $module = 'Topic';
 
     // SET THIS OBJECT/ITEM NAME
     private $item = 'topic';

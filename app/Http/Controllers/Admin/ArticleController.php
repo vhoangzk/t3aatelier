@@ -19,7 +19,7 @@ use App\Models\ArticleTopic;
 class ArticleController extends Controller
 {
     // set this module
-    private $module = 'Article';
+    protected $module = 'Article';
 
     // SET THIS OBJECT/ITEM NAME
     private $item = 'article';

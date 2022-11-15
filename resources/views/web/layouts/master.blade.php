@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
-@include('web.layouts.header')
+@include('web.layouts.head')
 <body
     class="home page no-customize-support default-dark-logo pswp-light-skin responsive-ux page-template-masonry-body page-template-intro-above-list-body navi-hide page_from_top dark-logo header-sticky preload">
 
@@ -8,7 +8,7 @@
 <div class="page-loading fullscreen-wrap visible">
     <div class="page-loading-inn">
         <div class="page-loading-transform">
-            <div class="site-loading-logo"><img src="img/demo/logo-loading.png" alt="Air Theme"/></div>
+            <div class="site-loading-logo"><img src="{{asset('img/demo/logo-loading.png')}}" alt="Air Theme"/></div>
         </div>
     </div>
 </div>
@@ -19,7 +19,20 @@
 <!--Main wrap-->
 <div class="wrap-all">
 
-    @yield('main')
+    <div id="wrap-outer">
+
+        @include('web.layouts.header')
+
+        @include('web.layouts.panel')
+
+        <div id="wrap">
+            @yield('content')
+            @include('web.layouts.footer')
+        </div>
+
+        <div class="video-overlay modal"><span class="video-close"></span></div><!--end video-overlay-->
+
+    </div><!--End wrap-outer-->
 
 </div><!--End wrap-all-->
 
@@ -77,7 +90,11 @@
     </div>
 
 </div>
-
-@include('web.layouts.footer')
+<!-- jQuery Library -->
+<script type='text/javascript' src='{{asset('js/library/jquery.min.js')}}'></script>
+<!-- Main Js Plugin -->
+<script type='text/javascript' src='{{asset('js/main.min.js')}}'></script>
+<!-- Air. Theme main js -->
+<script type='text/javascript' src='{{asset('js/custom.theme.js')}}'></script>
 </body>
 </html>

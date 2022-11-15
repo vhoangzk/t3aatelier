@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Generator;
@@ -14,7 +15,6 @@ use App\Libraries\Helper;
 use App\Models\Product;
 use App\Models\Article;
 use App\Models\Topic;
-use App\Models\Banner;
 
 class SiteController extends Controller
 {
@@ -22,12 +22,12 @@ class SiteController extends Controller
     {
         return redirect()->route('web.home');
     }
-    
+
     public function home()
     {
         $page_menu = 'home';
 
-        $banners = Banner::where('status', 1)->orderBy('ordinal')->get();
+        $banners = HomeService::getHomeBanners();
 
         $products = Product::whereNull('replaced_at')
             ->orderBy('id', 'desc')

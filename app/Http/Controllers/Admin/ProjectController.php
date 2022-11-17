@@ -8,8 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Helper;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectRelate;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -53,12 +56,21 @@ class ProjectController extends Controller
 
         // MANIPULATE THE DATA
         if (!empty($data)) {
+            $categories = Category::query()->pluck('name', 'id');
             foreach ($data as $item) {
+                $arrCategoryName = [];
+                $projectCategories = Project::getCategoriesByID($item->id, 'category_id');
+                $projectCategories->each(function ($item) use (&$arrCategoryName, $categories) {
+                    if (in_array($item, array_keys($categories->toArray()))) {
+                        $arrCategoryName[] = $categories[$item];
+                    }
+                });
                 $item->created_at_edited = date('Y-m-d H:i:s');
                 $item->updated_at_edited = Helper::time_ago(strtotime($item->updated_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
                 $item->deleted_at_edited = Helper::time_ago(strtotime($item->deleted_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
                 $item->thumbnail_item = asset($item->thumbnail);
                 $item->banner_item = asset($item->banner);
+                $item->categories = implode(', ', $arrCategoryName);
             }
         }
 
@@ -89,40 +101,82 @@ class ProjectController extends Controller
         $this->item = ucwords(lang($this->item, $this->translation));
 
         // INSERT NEW DATA
-        $data = new Category();
+        \DB::beginTransaction();
+        $data = new Project();
 
         // LARAVEL VALIDATION
         $validation = [
-            'name' => 'required|max:191'
+            'name' => 'required|max:191',
+            'category_id' => 'required',
         ];
         $message = [
             'required' => ':attribute ' . lang('field is required', $this->translation)
         ];
         $names = [
-            'image' => ucwords(lang('image', $this->translation))
+            'name' => ucwords(lang('name', $this->translation)),
+            'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
-
+        if ($request->banner) {
+            // PROCESSING IMAGE
+            $dir_path = 'uploads/banner/';
+            $image_file = $request->file('banner');
+            $format_image_name = time() . '-banner';
+            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+            if ($image['status'] != 'true') {
+                return back()
+                    ->withInput()
+                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+            }
+            // GET THE UPLOADED IMAGE RESULT
+            $data->banner = $dir_path . $image['data'];
+        }
+        if ($request->thumbnail) {
+            // PROCESSING IMAGE
+            $dir_path = 'uploads/thumbnail/';
+            $image_file = $request->file('thumbnail');
+            $format_image_name = time() . '-thumbnail';
+            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+            if ($image['status'] != 'true') {
+                return back()
+                    ->withInput()
+                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+            }
+            // GET THE UPLOADED IMAGE RESULT
+            $data->thumbnail = $dir_path . $image['data'];
+        }
+        $meta_data = [];
+        if ($request->meta_data) {
+            foreach ($request->meta_data as $item) {
+                $meta_data[] = [
+                    $item['name'] => $item['value']
+                ];
+            }
+        }
+        $data->meta_data = json_encode($meta_data);
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
-
-        // SET ORDER / ORDINAL
-        $last = Category::query()->select('ordinal')->orderBy('ordinal', 'desc')->first();
-        $ordinal = 1;
-        if ($last) {
-            $ordinal = $last->ordinal + 1;
-        }
-        $data->ordinal = $ordinal;
+        $data->content = $request->get('content');
 
         // SAVE THE DATA
         if ($data->save()) {
+            if ($request->category_id) {
+                foreach ($request->category_id as $item) {
+                    $relate = new ProjectRelate();
+                    $relate->project_id = $data->id;
+                    $relate->category_id = $item;
+                    $relate->save();
+                }
+            }
             // SUCCESS
+            \DB::commit();
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('success', lang('Successfully added a new #item', $this->translation, ['#item' => $this->item]));
         }
 
         // FAILED
+        \DB::rollBack();
         return back()
             ->withInput()
             ->with('error', lang('Oops, failed to add a new #item. Please try again.', $this->translation, ['#item' => $this->item]));
@@ -140,22 +194,22 @@ class ProjectController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Category::query()->find($id);
+        $data = Project::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
-
-        return view('admin.category.form', compact('data'));
+        $data->category_id = Project::getCategoriesByID($id, 'category_id');
+        return view('admin.project.form', compact('data'));
     }
 
     public function do_edit($id, Request $request)
@@ -169,12 +223,13 @@ class ProjectController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Category::query()->find($id);
+        \DB::beginTransaction();
+        $data = Project::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
@@ -185,32 +240,91 @@ class ProjectController extends Controller
         }
 
         // LARAVEL VALIDATION
-        if ($request->image) {
-            $validation = [
-                'name' => 'required|max:191'
-            ];
-            $message = [
-                'required' => ':attribute ' . lang('field is required', $this->translation)
-            ];
-            $names = [
-                'image' => ucwords(lang('name', $this->translation))
-            ];
-            $this->validate($request, $validation, $message, $names);
-        }
+        $validation = [
+            'name' => 'required|max:191',
+            'category_id' => 'required',
+        ];
+        $message = [
+            'required' => ':attribute ' . lang('field is required', $this->translation)
+        ];
+        $names = [
+            'name' => ucwords(lang('name', $this->translation)),
+            'category_id' => ucwords(lang('category_id', $this->translation)),
+        ];
+        $this->validate($request, $validation, $message, $names);
 
+        if ($request->banner) {
+            // PROCESSING IMAGE
+            $dir_path = 'uploads/banner/';
+            $image_file = $request->file('banner');
+            $format_image_name = time() . '-banner';
+            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+            if ($image['status'] != 'true') {
+                return back()
+                    ->withInput()
+                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+            }
+            // GET THE UPLOADED IMAGE RESULT
+            $data->banner = $dir_path . $image['data'];
+        }
+        if ($request->thumbnail) {
+            // PROCESSING IMAGE
+            $dir_path = 'uploads/thumbnail/';
+            $image_file = $request->file('thumbnail');
+            $format_image_name = time() . '-thumbnail';
+            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+            if ($image['status'] != 'true') {
+                return back()
+                    ->withInput()
+                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+            }
+            // GET THE UPLOADED IMAGE RESULT
+            $data->thumbnail = $dir_path . $image['data'];
+        }
+        $meta_data = [];
+        if ($request->meta_data) {
+            foreach ($request->meta_data as $item) {
+                $meta_data[] = [
+                    $item['name'] => $item['value']
+                ];
+            }
+        }
+        $data->meta_data = json_encode($meta_data);
         // HELPER VALIDATION FOR PREVENT SQL INJECTION & XSS ATTACK
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
+        $data->content = $request->get('content');
 
         // UPDATE THE DATA
         if ($data->save()) {
             // SUCCESS
+            $requestCategory = $request->category_id;
+            array_walk($requestCategory, function (&$value) {
+                $value = intval($value);
+            });
+            $projectCategory = Project::getCategoriesByID($id, 'category_id');
+            $requestCategory = collect($requestCategory);
+            if ($projectCategory->diff($requestCategory)->isNotEmpty()) {
+                foreach ($projectCategory->diff($requestCategory) as $categoryId) {
+                    ProjectRelate::query()->where(['category_id' => $categoryId])->delete();
+                }
+            }
+            if ($requestCategory->diff($projectCategory)->isNotEmpty()) {
+                foreach ($requestCategory->diff($projectCategory) as $item) {
+                    $relate = new ProjectRelate();
+                    $relate->project_id = $data->id;
+                    $relate->category_id = $item;
+                    $relate->save();
+                }
+            }
+            DB::commit();
             return redirect()
-                ->route('admin.category.edit', $id)
+                ->route('admin.project.edit', $id)
                 ->with('success', lang('Successfully updated #item', $this->translation, ['#item' => $this->item]));
         }
 
         // FAILED
+        DB::rollBack();
         return back()
             ->withInput()
             ->with('error', lang('Oops, failed to update #item. Please try again.', $this->translation, ['#item' => $this->item]));
@@ -273,18 +387,18 @@ class ProjectController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Category::query()->find($id);
+        $data = Project::query()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
@@ -292,7 +406,7 @@ class ProjectController extends Controller
         if ($data->delete()) {
             // SUCCESS
             return redirect()
-                ->route('admin.category.list')
+                ->route('admin.project.list')
                 ->with('success', lang('Successfully deleted #item', $this->translation, ['#item' => $this->item]));
         }
 
@@ -305,19 +419,12 @@ class ProjectController extends Controller
     {
         parent::authorizing('Restore');
 
-        return view('admin.category.list');
+        return view('admin.project.list');
     }
 
     public function get_data_deleted(Request $request)
     {
-        // AUTHORIZING...
-        $authorize = Helper::authorizing($this->module, 'View List');
-        if ($authorize['status'] != 'true') {
-            return response()->json([
-                'status' => 'false',
-                'message' => $authorize['message']
-            ]);
-        }
+        parent::authorizing('View List');
 
         // SET THIS OBJECT/ITEM NAME BASED ON TRANSLATION
         $this->item = ucwords(lang($this->item, $this->translation));
@@ -336,24 +443,34 @@ class ProjectController extends Controller
         }
 
         // GET THE DATA
-        $query = Category::onlyTrashed();
+        $query = Project::onlyTrashed();
 
         // PROVIDE THE DATA
-        $data = $query->orderBy('ordinal')->get();
+        $data = $query->get();
 
         // MANIPULATE THE DATA
         if (!empty($data)) {
+            $categories = Category::query()->pluck('name', 'id');
             foreach ($data as $item) {
+                $arrCategoryName = [];
+                $projectCategories = Project::getCategoriesByID($item->id, 'category_id');
+                $projectCategories->each(function ($item) use (&$arrCategoryName, $categories) {
+                    if (in_array($item, array_keys($categories->toArray()))) {
+                        $arrCategoryName[] = $categories[$item];
+                    }
+                });
                 $item->created_at_edited = date('Y-m-d H:i:s');
                 $item->updated_at_edited = Helper::time_ago(strtotime($item->updated_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
                 $item->deleted_at_edited = Helper::time_ago(strtotime($item->deleted_at), lang('ago', $this->translation), Helper::get_periods($this->translation));
-                $item->image_item = asset($item->image);
+                $item->thumbnail_item = asset($item->thumbnail);
+                $item->banner_item = asset($item->banner);
+                $item->categories = implode(', ', $arrCategoryName);
             }
         }
 
         // GET HTML
         $restore = true;
-        $html = view('admin.category.table', compact('data', 'restore'))->render();
+        $html = view('admin.project.table', compact('data', 'restore'))->render();
 
         // SUCCESS
         $response = [
@@ -377,18 +494,18 @@ class ProjectController extends Controller
         if ((int) $id < 1) {
             // INVALID OBJECT ID
             return redirect()
-                ->route('admin.category.deleted')
+                ->route('admin.project.deleted')
                 ->with('error', lang('#item ID is invalid, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
         // GET THE DATA BASED ON ID
-        $data = Category::onlyTrashed()->find($id);
+        $data = Project::onlyTrashed()->find($id);
 
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
             return redirect()
-                ->route('admin.category.deleted')
+                ->route('admin.project.deleted')
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
 
@@ -396,7 +513,7 @@ class ProjectController extends Controller
         if ($data->restore()) {
             // SUCCESS
             return redirect()
-                ->route('admin.category.deleted')
+                ->route('admin.project.deleted')
                 ->with('success', lang('Successfully restored #item', $this->translation, ['#item' => $this->item]));
         }
 

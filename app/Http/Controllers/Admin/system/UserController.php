@@ -21,7 +21,7 @@ use App\Models\system\SysLanguage;
 class UserController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'User';
+    protected $module = 'User';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'admin';
 

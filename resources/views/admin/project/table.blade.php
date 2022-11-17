@@ -9,10 +9,10 @@
     @foreach($data as $item)
         <tr role="row" id="row-{{$item->id}}" title="{{ ucfirst(lang("Drag & drop to sorting", $translation)) }}"
             data-toggle="tooltip">
-            <td>{{$item->category_id}}</td>
+            <td>{{$item->categories}}</td>
             <td>{{$item->name}}</td>
-            <td>{{$item->thumbnail_item}}</td>
-            <td>{{$item->banner_item}}</td>
+            <td><img src="{{$item->thumbnail_item}}" alt="" class="admin-project-image"></td>
+            <td><img src="{{$item->banner_item}}" alt="" class="admin-project-image"></td>
             <td>
                 @if($item->status == \App\Models\Project::STATUS_ENABLE)
                     <span class="label label-success">{{ ucwords(lang("enabled", $translation)) }}</span>

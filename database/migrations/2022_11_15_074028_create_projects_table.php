@@ -16,11 +16,10 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('category_id', 50)->nullable();
             $table->text('name');
             $table->string('thumbnail', 255)->nullable();
-            $table->string('banner', 255);
-            $table->text('meta_data');
+            $table->string('banner', 255)->nullable();
+            $table->text('meta_data')->nullable();
             $table->text('content')->nullable();
             $table->boolean('status')->default(Project::STATUS_ENABLE);
             $table->timestamps();

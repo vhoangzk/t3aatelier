@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Project extends Model
 {
@@ -33,4 +34,18 @@ class Project extends Model
         'content',
         'status',
     ];
+
+    /**
+     * @param $id
+     * @param string $pluck
+     * @return Collection
+     */
+    public static function getCategoriesByID($id, string $pluck = '') {
+        $query = ProjectRelate::query()->where(['project_id' => $id]);
+        if (empty($pluck)) {
+           return $query->get();
+        } else {
+           return $query->pluck($pluck);
+        }
+    }
 }

@@ -87,10 +87,9 @@
                                     </div>
                                 </div>
 
-                                <div class="brick-content ux-lazyload-wrap"
-                                     style=" padding-top: 75.384615384615%;">
+                                <div class="brick-content ux-lazyload-wrap">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -117,10 +116,9 @@
                                     </div>
                                 </div>
 
-                                <div class="brick-content ux-lazyload-wrap"
-                                     style=" padding-top: 75.384615384615%;">
+                                <div class="brick-content ux-lazyload-wrap">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -142,10 +140,9 @@
                                     </div>
                                 </div>
 
-                                <div class="brick-content ux-lazyload-wrap"
-                                     style=" padding-top: 37.439024390244%;">
+                                <div class="brick-content ux-lazyload-wrap">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/820x307"></div>
+                                         data-bg="https://via.placeholder.com/820x307"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -170,10 +167,9 @@
                                     </div>
                                 </div>
 
-                                <div class="brick-content ux-lazyload-wrap"
-                                     style=" padding-top: 150.09523809524%;">
+                                <div class="brick-content ux-lazyload-wrap">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/525x788"></div>
+                                         data-bg="https://via.placeholder.com/820x307"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -203,7 +199,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 75.384615384615%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -231,7 +227,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 75.384615384615%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -258,7 +254,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 66.615384615385%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -286,7 +282,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 75.384615384615%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -315,7 +311,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 75.384615384615%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->
@@ -340,7 +336,7 @@
                                 <div class="brick-content ux-lazyload-wrap"
                                      style=" padding-top: 75.384615384615%;">
                                     <div class="ux-lazyload-bgimg ux-background-img"
-                                         data-bg="http://placehold.it/650x490"></div>
+                                         data-bg="https://via.placeholder.com/650x490"></div>
                                 </div>
 
                             </div><!--End inside-->

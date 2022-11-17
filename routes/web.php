@@ -32,6 +32,12 @@ Route::group(['namespace' => 'Web'], function () {
         // HOME
         Route::get('/', 'SiteController@home')->name('web.home');
 
+        // ABOUT
+        Route::get('/about', 'SiteController@about')->name('web.about');
+
+        // CONTACT
+        Route::get('/contact', 'SiteController@contact')->name('web.contact');
+
         // BLOG
         Route::group(['prefix' => 'blog'], function () {
             Route::get('/', 'SiteController@blog')->name('web.blog');

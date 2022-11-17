@@ -20,9 +20,9 @@
                                 <div  class="fullwidth-wrap fullscreen-wrap">
 
                                     <div data-type="background" class="parallax back-background" data-ratio="0.1">
-                                        <img class="back-background-img" src="http://placehold.it/1400x800" alt="About">
+                                        <img class="back-background-img" src="https://via.placeholder.com/1400x800" alt="About">
 
-                                        <div class="back-background-img-mobile" style="background-image:url(http://placehold.it/1400x800)"></div>
+                                        <div class="back-background-img-mobile" style="background-image:url(https://via.placeholder.com/1400x800)"></div>
 
                                     </div>
 

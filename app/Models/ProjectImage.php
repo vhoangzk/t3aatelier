@@ -27,7 +27,6 @@ class ProjectImage extends Model
     protected $fillable = [
         'project_id',
         'url',
-        'status',
         'ordinal',
     ];
 }

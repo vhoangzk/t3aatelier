@@ -7,7 +7,7 @@
             <div id="navi-wrap" class="menu-navi-wrap">
 
                 <ul class="menu clearfix">
-                    <li class="menu-item current-menu-item current_page_item menu-item-has-children">
+                    <li class="menu-item current-menu-item current_page_item menu-item-has-children hidden">
                         <a>Homes</a>
                         <ul class="sub-menu">
                             <li class="menu-item"><a href="home2.html">Home Alternative</a></li>
@@ -18,9 +18,9 @@
                             <li class="menu-item"><a href="home7.html">Open Items with Lightbox</a></li>
                         </ul>
                     </li>
-                    <li id="menu-item-246" class="menu-item"><a href="page-news.html">News</a></li>
-                    <li id="menu-item-256" class="menu-item"><a href="page-about.html">About</a></li>
-                    <li id="menu-item-247" class="menu-item"><a href="page-contact.html">Contact</a></li>
+                    <li id="menu-item-246" class="menu-item"><a href="{{route('web.home')}}">Home</a></li>
+                    <li id="menu-item-256" class="menu-item"><a href="{{route('web.about')}}">About</a></li>
+                    <li id="menu-item-247" class="menu-item"><a href="{{route('web.contact')}}">Contact</a></li>
                 </ul>
 
             </div>

@@ -48,4 +48,13 @@ class Project extends Model
            return $query->pluck($pluck);
         }
     }
+
+    public static function getImagesByID($id, string $pluck = '') {
+        $query = ProjectImage::query()->where(['project_id' => $id])->orderBy('ordinal');
+        if (empty($pluck)) {
+            return $query->get();
+        } else {
+            return $query->pluck($pluck);
+        }
+    }
 }

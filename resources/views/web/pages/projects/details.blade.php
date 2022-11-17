@@ -24,11 +24,11 @@
                                     <div class="container">
 
                                         <div class="post-navi-unit post-navi-unit-prev col-sm-6 col-md-6 col-xs-6">
-                                            <a href="project-item-slider.html" title="Project with Video" class="arrow-item arrow-prev"><span class="navi-arrow"></span><span class="navi-title-tag">PREV</span><span class="navi-title-img"><img width="150" height="150" src="http://placehold.it/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="http://placehold.it/150x150 150w, http://placehold.it/200x200 400w, http://placehold.it/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a>
+                                            <a href="project-item-slider.html" title="Project with Video" class="arrow-item arrow-prev"><span class="navi-arrow"></span><span class="navi-title-tag">PREV</span><span class="navi-title-img"><img width="150" height="150" src="https://via.placeholder.com/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a>
                                         </div>
 
                                         <div class="post-navi-unit post-navi-unit-next col-sm-6 col-md-6 col-xs-6">
-                                            <a href="project-item-standard-text-center.html" title="Raw" class="arrow-item arrow-next"><span class="navi-arrow"></span><span class="navi-title-tag">NEXT</span><span class="navi-title-img"><img width="150" height="150" src="http://placehold.it/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="http://placehold.it/150x150 150w, http://placehold.it/200x200 400w, http://placehold.it/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a>
+                                            <a href="project-item-standard-text-center.html" title="Raw" class="arrow-item arrow-next"><span class="navi-arrow"></span><span class="navi-title-tag">NEXT</span><span class="navi-title-img"><img width="150" height="150" src="https://via.placeholder.com/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a>
                                         </div>
 
                                     </div>
@@ -38,23 +38,23 @@
                                 <div class="owl-carousel" data-item="1" data-center="false" data-margin="0" data-autowidth="false" data-slideby="1" data-showdot="true" data-nav="false" data-loop="false" data-lazy="true">
 
                                     <section class="item">
-                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="http://placehold.it/1400x800"></div>
+                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="https://via.placeholder.com/1400x800"></div>
                                     </section>
 
                                     <section class="item">
-                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="http://placehold.it/1400x800"></div>
+                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="https://via.placeholder.com/1400x800"></div>
                                     </section>
 
                                     <section class="item">
-                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="http://placehold.it/1400x800"></div>
+                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="https://via.placeholder.com/1400x800"></div>
                                     </section>
 
                                     <section class="item">
-                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="http://placehold.it/1400x800"></div>
+                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="https://via.placeholder.com/1400x800"></div>
                                     </section>
 
                                     <section class="item">
-                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="http://placehold.it/1400x800"></div>
+                                        <div class="carousel-img-wrap fullscreen-wrap ux-background-img" data-bg="https://via.placeholder.com/1400x800"></div>
                                     </section>
 
                                 </div>
@@ -115,11 +115,11 @@
                             <div class="blog-unit-meta-bottom">
                                 <nav class="post-navi-single row">
                                     <div class="container">
-                                        <div class="post-navi-unit post-navi-unit-prev col-sm-5 col-md-5 col-xs-5"><a href="project-item-slider.html" title="Hikeshi" class="arrow-item arrow-prev"><span class="navi-arrow"></span><span class="navi-title-tag">PREV</span><span class="navi-title-img"><img width="150" height="150" src="http://placehold.it/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="http://placehold.it/150x150 150w, http://placehold.it/200x200 400w, http://placehold.it/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a></div>
+                                        <div class="post-navi-unit post-navi-unit-prev col-sm-5 col-md-5 col-xs-5"><a href="project-item-slider.html" title="Hikeshi" class="arrow-item arrow-prev"><span class="navi-arrow"></span><span class="navi-title-tag">PREV</span><span class="navi-title-img"><img width="150" height="150" src="https://via.placeholder.com/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a></div>
 
                                         <div class="post-navi-go-back col-sm-2 col-md-2 col-xs-2"><a class="post-navi-go-back-a" href="index.html" data-postid="79"><span class="post-navi-go-back-a-inn"></span></a></div>
 
-                                        <div class="post-navi-unit post-navi-unit-next col-sm-5 col-md-5 col-xs-5"><a href="project-item-standard-text-center.html" title="Sofisticada" class="arrow-item arrow-next"><span class="navi-arrow"></span><span class="navi-title-tag">NEXT</span><span class="navi-title-img"><img width="150" height="150" src="http://placehold.it/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="http://placehold.it/150x150 150w, http://placehold.it/200x200 400w, http://placehold.it/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a></div>
+                                        <div class="post-navi-unit post-navi-unit-next col-sm-5 col-md-5 col-xs-5"><a href="project-item-standard-text-center.html" title="Sofisticada" class="arrow-item arrow-next"><span class="navi-arrow"></span><span class="navi-title-tag">NEXT</span><span class="navi-title-img"><img width="150" height="150" src="https://via.placeholder.com/150x150" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Thumbnail Image" srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w" sizes="(max-width: 150px) 100vw, 150px" /></span></a></div>
                                     </div>
                                 </nav>
                             </div><!--End blog-unit-meta-bottom-->

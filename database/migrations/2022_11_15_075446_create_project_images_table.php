@@ -18,9 +18,9 @@ class CreateProjectImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->string('url');
-            $table->boolean('status')->default(ProjectImage::STATUS_ENABLE);
             $table->unsignedInteger('ordinal')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

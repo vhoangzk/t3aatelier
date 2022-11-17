@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Helper;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectImage;
 use App\Models\ProjectRelate;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
@@ -168,6 +169,23 @@ class ProjectController extends Controller
                     $relate->save();
                 }
             }
+            if ($request->images) {
+                $images = $request->images;
+                foreach ($images as $image_file) {
+                    $dir_path = "uploads/project-images/$data->id/";
+                    $format_image_name = time() . '-' . rand(1, 9999) . '-images';
+                    $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+                    if ($image['status'] != 'true') {
+                        return back()
+                            ->withInput()
+                            ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+                    }
+                    $projectImage = new ProjectImage();
+                    $projectImage->project_id = $data->id;
+                    $projectImage->url = $dir_path . $image['data'];
+                    $projectImage->save();
+                }
+            }
             // SUCCESS
             \DB::commit();
             return redirect()
@@ -209,6 +227,7 @@ class ProjectController extends Controller
                 ->with('error', lang('#item not found, please recheck your link again', $this->translation, ['#item' => $this->item]));
         }
         $data->category_id = Project::getCategoriesByID($id, 'category_id');
+        $data->images = Project::getImagesByID($id, 'url');
         return view('admin.project.form', compact('data'));
     }
 
@@ -252,7 +271,6 @@ class ProjectController extends Controller
             'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
-
         if ($request->banner) {
             // PROCESSING IMAGE
             $dir_path = 'uploads/banner/';
@@ -280,6 +298,25 @@ class ProjectController extends Controller
             }
             // GET THE UPLOADED IMAGE RESULT
             $data->thumbnail = $dir_path . $image['data'];
+        }
+
+        if ($request->images) {
+            $images = $request->images;
+            ProjectImage::query()->where(['project_id' => $id])->delete();
+            foreach ($images as $image_file) {
+                $dir_path = "uploads/project-images/$id/";
+                $format_image_name = time() . '-' . rand(1, 9999) . '-images';
+                $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+                if ($image['status'] != 'true') {
+                    return back()
+                        ->withInput()
+                        ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+                }
+                $projectImage = new ProjectImage();
+                $projectImage->project_id = $data->id;
+                $projectImage->url = $dir_path . $image['data'];
+                $projectImage->save();
+            }
         }
         $meta_data = [];
         if ($request->meta_data) {

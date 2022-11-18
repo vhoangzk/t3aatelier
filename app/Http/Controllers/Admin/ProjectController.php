@@ -53,7 +53,7 @@ class ProjectController extends Controller
         $query = Project::query()->whereNotNull('id');
 
         // PROVIDE THE DATA
-        $data = $query->get();
+        $data = $query->orderBy('ordinal', 'ASC')->get();
 
         // MANIPULATE THE DATA
         if (!empty($data)) {
@@ -108,13 +108,16 @@ class ProjectController extends Controller
         // LARAVEL VALIDATION
         $validation = [
             'name' => 'required|max:191',
+            'path' => 'required|unique:projects,path',
             'category_id' => 'required',
         ];
         $message = [
-            'required' => ':attribute ' . lang('field is required', $this->translation)
+            'required' => ':attribute ' . lang('field is required', $this->translation),
+            'unique' => ':attribute ' . lang('field is duplicate', $this->translation),
         ];
         $names = [
             'name' => ucwords(lang('name', $this->translation)),
+            'path' => ucwords(lang('path', $this->translation)),
             'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
@@ -158,6 +161,7 @@ class ProjectController extends Controller
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
         $data->content = $request->get('content');
+        $data->path = $request->path;
 
         // SAVE THE DATA
         if ($data->save()) {
@@ -261,13 +265,16 @@ class ProjectController extends Controller
         // LARAVEL VALIDATION
         $validation = [
             'name' => 'required|max:191',
+            'path' => 'required|unique:projects,path',
             'category_id' => 'required',
         ];
         $message = [
-            'required' => ':attribute ' . lang('field is required', $this->translation)
+            'required' => ':attribute ' . lang('field is required', $this->translation),
+            'unique' => ':attribute ' . lang('field is duplicate', $this->translation),
         ];
         $names = [
             'name' => ucwords(lang('name', $this->translation)),
+            'path' => ucwords(lang('path', $this->translation)),
             'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
@@ -331,6 +338,8 @@ class ProjectController extends Controller
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
         $data->content = $request->get('content');
+        $data->path = $request->path;
+        $data->external_url = $request->external_url;
 
         // UPDATE THE DATA
         if ($data->save()) {
@@ -395,7 +404,7 @@ class ProjectController extends Controller
             // split the data
             $tmp = explode('[]=', $item);
 
-            $object = Category::query()->find($tmp[1]);
+            $object = Project::query()->find($tmp[1]);
             $object->ordinal = $ordinal;
             $object->save();
 

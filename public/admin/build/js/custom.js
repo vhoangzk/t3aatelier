@@ -15,6 +15,7 @@
         return function debounced() {
             var obj = this,
                 args = arguments;
+
             function delayed() {
                 if (!execAsap) func.apply(obj, args);
                 timeout = null;
@@ -156,10 +157,11 @@ function init_sidebar() {
         $(".menu_fixed").mCustomScrollbar({
             autoHideScrollbar: true,
             theme: "minimal",
-            mouseWheel: { preventDefault: true },
+            mouseWheel: {preventDefault: true},
         });
     }
 }
+
 // /Sidebar
 
 var randNum = function () {
@@ -322,8 +324,8 @@ $.fn.popover.Constructor.prototype.leave = function (obj) {
         obj instanceof this.constructor
             ? obj
             : $(obj.currentTarget)
-                  [this.type](this.getDelegateOptions())
-                  .data("bs." + this.type);
+                [this.type](this.getDelegateOptions())
+                .data("bs." + this.type);
     var container, timeout;
 
     originalLeave.call(this, obj);
@@ -710,7 +712,7 @@ function init_skycons() {
         ],
         i;
 
-    for (i = list.length; i--; ) icons.set(list[i], list[i]);
+    for (i = list.length; i--;) icons.set(list[i], list[i]);
 
     icons.play();
 }
@@ -1322,7 +1324,8 @@ function init_parsley() {
 
     try {
         hljs.initHighlightingOnLoad();
-    } catch (err) {}
+    } catch (err) {
+    }
 }
 
 /* INPUTS */
@@ -1399,12 +1402,12 @@ function init_wysiwyg() {
             fontTarget.append(
                 $(
                     '<li><a data-edit="fontName ' +
-                        fontName +
-                        '" style="font-family:\'' +
-                        fontName +
-                        "'\">" +
-                        fontName +
-                        "</a></li>"
+                    fontName +
+                    '" style="font-family:\'' +
+                    fontName +
+                    "'\">" +
+                    fontName +
+                    "</a></li>"
                 )
             );
         });
@@ -1460,9 +1463,9 @@ function init_wysiwyg() {
         }
         $(
             '<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                "<strong>File upload error</strong> " +
-                msg +
-                " </div>"
+            "<strong>File upload error</strong> " +
+            msg +
+            " </div>"
         ).prependTo("#alerts");
     }
 
@@ -2030,8 +2033,8 @@ function init_daterangepicker() {
 
     $("#reportrange span").html(
         moment().subtract(29, "days").format("MMMM D, YYYY") +
-            " - " +
-            moment().format("MMMM D, YYYY")
+        " - " +
+        moment().format("MMMM D, YYYY")
     );
     $("#reportrange").daterangepicker(optionSet1, cb);
     $("#reportrange").on("show.daterangepicker", function () {
@@ -2043,9 +2046,9 @@ function init_daterangepicker() {
     $("#reportrange").on("apply.daterangepicker", function (ev, picker) {
         console.log(
             "apply event fired, start/end dates are " +
-                picker.startDate.format("MMMM D, YYYY") +
-                " to " +
-                picker.endDate.format("MMMM D, YYYY")
+            picker.startDate.format("MMMM D, YYYY") +
+            " to " +
+            picker.endDate.format("MMMM D, YYYY")
         );
     });
     $("#reportrange").on("cancel.daterangepicker", function (ev, picker) {
@@ -2137,8 +2140,8 @@ function init_daterangepicker_right() {
 
     $("#reportrange_right span").html(
         moment().startOf("month").format("DD/MM/YYYY") +
-            " - " +
-            moment().endOf("month").format("DD/MM/YYYY")
+        " - " +
+        moment().endOf("month").format("DD/MM/YYYY")
     );
 
     $("#reportrange_right").daterangepicker(optionSet1, cb);
@@ -2152,9 +2155,9 @@ function init_daterangepicker_right() {
     $("#reportrange_right").on("apply.daterangepicker", function (ev, picker) {
         console.log(
             "apply event fired, start/end dates are " +
-                picker.startDate.format("DD/MM/YYYY") +
-                " to " +
-                picker.endDate.format("DD/MM/YYYY")
+            picker.startDate.format("DD/MM/YYYY") +
+            " to " +
+            picker.endDate.format("DD/MM/YYYY")
         );
     });
     $("#reportrange_right").on("cancel.daterangepicker", function (ev, picker) {
@@ -2345,12 +2348,12 @@ function init_CustomNotification() {
         } else {
             $("#custom_notifications ul.notifications").append(
                 "<li><a id='ntlink" +
-                    cnt +
-                    "' class='alert-" +
-                    options.type +
-                    "' href='#ntf" +
-                    cnt +
-                    "'><i class='fa fa-bell animated shake'></i></a></li>"
+                cnt +
+                "' class='alert-" +
+                options.type +
+                "' href='#ntf" +
+                cnt +
+                "'><i class='fa fa-bell animated shake'></i></a></li>"
             );
             $("#custom_notifications #notif-group").append(message);
             cnt++;
@@ -2428,8 +2431,8 @@ function init_EasyPieChart() {
             obj instanceof this.constructor
                 ? obj
                 : $(obj.currentTarget)
-                      [this.type](this.getDelegateOptions())
-                      .data("bs." + this.type);
+                    [this.type](this.getDelegateOptions())
+                    .data("bs." + this.type);
         var container, timeout;
 
         originalLeave.call(this, obj);
@@ -3123,7 +3126,7 @@ function init_DataTables() {
 
     $datatable.dataTable({
         order: [[1, "asc"]],
-        columnDefs: [{ orderable: false, targets: [0] }],
+        columnDefs: [{orderable: false, targets: [0]}],
     });
     $datatable.on("draw.dt", function () {
         $("checkbox input").iCheck({
@@ -3146,16 +3149,16 @@ function init_morris_charts() {
         Morris.Bar({
             element: "graph_bar",
             data: [
-                { device: "iPhone 4", geekbench: 380 },
-                { device: "iPhone 4S", geekbench: 655 },
-                { device: "iPhone 3GS", geekbench: 275 },
-                { device: "iPhone 5", geekbench: 1571 },
-                { device: "iPhone 5S", geekbench: 655 },
-                { device: "iPhone 6", geekbench: 2154 },
-                { device: "iPhone 6 Plus", geekbench: 1144 },
-                { device: "iPhone 6S", geekbench: 2371 },
-                { device: "iPhone 6S Plus", geekbench: 1471 },
-                { device: "Other", geekbench: 1371 },
+                {device: "iPhone 4", geekbench: 380},
+                {device: "iPhone 4S", geekbench: 655},
+                {device: "iPhone 3GS", geekbench: 275},
+                {device: "iPhone 5", geekbench: 1571},
+                {device: "iPhone 5S", geekbench: 655},
+                {device: "iPhone 6", geekbench: 2154},
+                {device: "iPhone 6 Plus", geekbench: 1144},
+                {device: "iPhone 6S", geekbench: 2371},
+                {device: "iPhone 6S Plus", geekbench: 1471},
+                {device: "Other", geekbench: 1371},
             ],
             xkey: "device",
             ykeys: ["geekbench"],
@@ -3172,16 +3175,16 @@ function init_morris_charts() {
         Morris.Bar({
             element: "graph_bar_group",
             data: [
-                { period: "2016-10-01", licensed: 807, sorned: 660 },
-                { period: "2016-09-30", licensed: 1251, sorned: 729 },
-                { period: "2016-09-29", licensed: 1769, sorned: 1018 },
-                { period: "2016-09-20", licensed: 2246, sorned: 1461 },
-                { period: "2016-09-19", licensed: 2657, sorned: 1967 },
-                { period: "2016-09-18", licensed: 3148, sorned: 2627 },
-                { period: "2016-09-17", licensed: 3471, sorned: 3740 },
-                { period: "2016-09-16", licensed: 2871, sorned: 2216 },
-                { period: "2016-09-15", licensed: 2401, sorned: 1656 },
-                { period: "2016-09-10", licensed: 2115, sorned: 1022 },
+                {period: "2016-10-01", licensed: 807, sorned: 660},
+                {period: "2016-09-30", licensed: 1251, sorned: 729},
+                {period: "2016-09-29", licensed: 1769, sorned: 1018},
+                {period: "2016-09-20", licensed: 2246, sorned: 1461},
+                {period: "2016-09-19", licensed: 2657, sorned: 1967},
+                {period: "2016-09-18", licensed: 3148, sorned: 2627},
+                {period: "2016-09-17", licensed: 3471, sorned: 3740},
+                {period: "2016-09-16", licensed: 2871, sorned: 2216},
+                {period: "2016-09-15", licensed: 2401, sorned: 1656},
+                {period: "2016-09-10", licensed: 2115, sorned: 1022},
             ],
             xkey: "period",
             barColors: ["#26B99A", "#34495E", "#ACADAC", "#3498DB"],
@@ -3197,10 +3200,10 @@ function init_morris_charts() {
         Morris.Bar({
             element: "graphx",
             data: [
-                { x: "2015 Q1", y: 2, z: 3, a: 4 },
-                { x: "2015 Q2", y: 3, z: 5, a: 6 },
-                { x: "2015 Q3", y: 4, z: 3, a: 2 },
-                { x: "2015 Q4", y: 2, z: 4, a: 5 },
+                {x: "2015 Q1", y: 2, z: 3, a: 4},
+                {x: "2015 Q2", y: 3, z: 5, a: 6},
+                {x: "2015 Q3", y: 4, z: 3, a: 2},
+                {x: "2015 Q4", y: 2, z: 4, a: 5},
             ],
             xkey: "x",
             ykeys: ["y", "z", "a"],
@@ -3217,16 +3220,16 @@ function init_morris_charts() {
         Morris.Area({
             element: "graph_area",
             data: [
-                { period: "2014 Q1", iphone: 2666, ipad: null, itouch: 2647 },
-                { period: "2014 Q2", iphone: 2778, ipad: 2294, itouch: 2441 },
-                { period: "2014 Q3", iphone: 4912, ipad: 1969, itouch: 2501 },
-                { period: "2014 Q4", iphone: 3767, ipad: 3597, itouch: 5689 },
-                { period: "2015 Q1", iphone: 6810, ipad: 1914, itouch: 2293 },
-                { period: "2015 Q2", iphone: 5670, ipad: 4293, itouch: 1881 },
-                { period: "2015 Q3", iphone: 4820, ipad: 3795, itouch: 1588 },
-                { period: "2015 Q4", iphone: 15073, ipad: 5967, itouch: 5175 },
-                { period: "2016 Q1", iphone: 10687, ipad: 4460, itouch: 2028 },
-                { period: "2016 Q2", iphone: 8432, ipad: 5713, itouch: 1791 },
+                {period: "2014 Q1", iphone: 2666, ipad: null, itouch: 2647},
+                {period: "2014 Q2", iphone: 2778, ipad: 2294, itouch: 2441},
+                {period: "2014 Q3", iphone: 4912, ipad: 1969, itouch: 2501},
+                {period: "2014 Q4", iphone: 3767, ipad: 3597, itouch: 5689},
+                {period: "2015 Q1", iphone: 6810, ipad: 1914, itouch: 2293},
+                {period: "2015 Q2", iphone: 5670, ipad: 4293, itouch: 1881},
+                {period: "2015 Q3", iphone: 4820, ipad: 3795, itouch: 1588},
+                {period: "2015 Q4", iphone: 15073, ipad: 5967, itouch: 5175},
+                {period: "2016 Q1", iphone: 10687, ipad: 4460, itouch: 2028},
+                {period: "2016 Q2", iphone: 8432, ipad: 5713, itouch: 1791},
             ],
             xkey: "period",
             ykeys: ["iphone", "ipad", "itouch"],
@@ -3242,10 +3245,10 @@ function init_morris_charts() {
         Morris.Donut({
             element: "graph_donut",
             data: [
-                { label: "Jam", value: 25 },
-                { label: "Frosted", value: 40 },
-                { label: "Custard", value: 25 },
-                { label: "Sugar", value: 10 },
+                {label: "Jam", value: 25},
+                {label: "Frosted", value: 40},
+                {label: "Custard", value: 25},
+                {label: "Sugar", value: 10},
             ],
             colors: ["#26B99A", "#34495E", "#ACADAC", "#3498DB"],
             formatter: function (y) {
@@ -3264,11 +3267,11 @@ function init_morris_charts() {
             hideHover: "auto",
             lineColors: ["#26B99A", "#34495E", "#ACADAC", "#3498DB"],
             data: [
-                { year: "2012", value: 20 },
-                { year: "2013", value: 10 },
-                { year: "2014", value: 5 },
-                { year: "2015", value: 5 },
-                { year: "2016", value: 20 },
+                {year: "2012", value: 20},
+                {year: "2013", value: 10},
+                {year: "2014", value: 5},
+                {year: "2015", value: 5},
+                {year: "2016", value: 20},
             ],
             resize: true,
         });
@@ -3377,8 +3380,8 @@ function init_echarts() {
                 color: "#408829",
             },
             controlStyle: {
-                normal: { color: "#408829" },
-                emphasis: { color: "#408829" },
+                normal: {color: "#408829"},
+                emphasis: {color: "#408829"},
             },
         },
 
@@ -5949,6 +5952,31 @@ function init_echarts() {
             ],
         });
     }
+}
+
+function convertStringToUrl(str) {
+    str = str.toLowerCase().trim();
+    var AccentsMap = [
+        'aàảãáạăằẳẵắặâầẩẫấậ',
+        'AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ',
+        'dđ', 'DĐ',
+        'eèẻẽéẹêềểễếệ',
+        'EÈẺẼÉẸÊỀỂỄẾỆ',
+        'iìỉĩíị',
+        'IÌỈĨÍỊ',
+        'oòỏõóọôồổỗốộơờởỡớợ',
+        'OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ',
+        'uùủũúụưừửữứự',
+        'UÙỦŨÚỤƯỪỬỮỨỰ',
+        'yỳỷỹýỵ',
+        'YỲỶỸÝỴ',
+    ];
+    for (var i = 0; i < AccentsMap.length; i++) {
+        var re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+        var char = AccentsMap[i][0];
+        str = str.replace(re, char);
+    }
+    return str.replaceAll(/\W+/g, ' ').trim().replaceAll(/\s+/g, '-').replaceAll(/[-]+/g, '-');
 }
 
 $(document).ready(function () {

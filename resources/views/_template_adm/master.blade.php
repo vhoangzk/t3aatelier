@@ -232,6 +232,8 @@
 
 <script src="{{ asset('admin/vendors/select2/dist/js/select2.min.js') }}"></script>
 
+<script src="{{ asset('admin/build/js/notify.min.js') }}"></script>
+
 @yield('script-sidebar')
 
 <!-- Custom Theme Scripts -->

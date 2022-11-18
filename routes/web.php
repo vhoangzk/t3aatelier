@@ -32,6 +32,9 @@ Route::group(['namespace' => 'Web'], function () {
         // HOME
         Route::get('/', 'SiteController@home')->name('web.home');
 
+        // PROJECT
+        Route::get('/{path}', 'SiteController@projectDetail')->name('web.project');
+
         // ABOUT
         Route::get('/about', 'SiteController@about')->name('web.about');
 

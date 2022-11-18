@@ -25,6 +25,13 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'status', 'ordinal'
+        'name',
+        'status',
+        'ordinal',
+        'path',
     ];
+
+    public function projects() {
+        return $this->hasMany(ProjectRelate::class, 'category_id');
+    }
 }

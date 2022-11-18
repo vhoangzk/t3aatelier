@@ -2,8 +2,11 @@
 <script src="{{ asset('admin/vendors/jquery-ui/jquery-ui-git.js') }}"></script>
 <script>
     $(document).ready(function() {
+        let notify_option = {
+            position: 'bottom right'
+        };
         if (typeof AjaxSortingURL == 'undefined') {
-            alert("You must set variable (AjaxSortingURL)");
+            $.notify("{{ ucwords(lang('you must set variable (AjaxSortingURL)', $translation)) }}", { position: 'bottom right', className: 'warn' });
         }
 
         $('.sorted_table').sortable({
@@ -18,12 +21,10 @@
                         rows: data_list,
                     },
                     success: function(data){
-                        console.log(data);
+                        $.notify("{{ ucwords(lang('moved', $translation)) }}", { position: 'bottom right', className: 'success' });
                     },
                     error: function (data, textStatus, errorThrown) {
-                        console.log(data);
-                        console.log(textStatus);
-                        console.log(errorThrown);
+                        $.notify("{{ ucwords(lang('moving failed', $translation)) }}", { position: 'bottom right', className: 'error' });
                     }
                 });
             }

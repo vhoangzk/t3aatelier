@@ -11,9 +11,6 @@
         $data = null;
     }
 @endphp
-@section('css')
-    <link rel='stylesheet' href='{{asset('css/owl.carousel.css')}}' type='text/css' media='screen'/>
-@endsection
 @section('title', $pagetitle)
 
 @section('content')
@@ -115,6 +112,8 @@
                                 $config = new stdClass();
                                 $config->attributes = 'autocomplete="off"';
                                 echo set_input_form2('text', 'name', ucwords(lang('name', $translation)), $data, $errors, true, $config);
+                                echo set_input_form2('text', 'path', ucwords(lang('path', $translation)), $data, $errors, true, $config);
+                                echo set_input_form2('text', 'external_url', ucwords(lang('external_url', $translation)), $data, $errors, true, $config);
 
                                 $config = new stdClass();
                                 $config->rows = 10;
@@ -208,6 +207,7 @@
 @section('css')
     <!-- Switchery -->
     @include('_form_element.switchery.css')
+    <link rel='stylesheet' href='{{asset('css/owl.carousel.css')}}' type='text/css' media='screen'/>
 @endsection
 
 @section('script')
@@ -264,5 +264,9 @@
             }
             // input.value = '';
         }
+        $('#name').on('keydown keyup', function (e) {
+            let str = convertStringToUrl($(this).val());
+            $('#path').val(str);
+        })
     </script>
 @endsection

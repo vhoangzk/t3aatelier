@@ -18,6 +18,7 @@ class CreateProjectRelatesTable extends Migration
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

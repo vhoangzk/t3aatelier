@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Project;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +31,19 @@ class SiteController extends Controller
 
         $banners = HomeService::getHomeBanners();
 
-        $products = Product::whereNull('replaced_at')
-            ->orderBy('id', 'desc')
-            ->get();
+        $categories = HomeService::getHomeCategories();
 
-        return view('web.home', compact('page_menu', 'products', 'banners'));
+        $projects = HomeService::getHomeProjects();
+
+        return view('web.home', compact('page_menu',  'banners', 'categories', 'projects'));
+    }
+
+    public function projectDetail($path) {
+        $project = Project::query()
+            ->with('images')
+            ->where(['path' => $path])
+            ->first();
+        return view('web.pages.projects.details', compact('project'));
     }
 
     public function blog(Request $request)

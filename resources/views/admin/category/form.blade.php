@@ -42,11 +42,13 @@
 
                                 $config = new \stdClass();
                                 $config->attributes = 'autocomplete="off"';
-                                echo set_input_form2('text', 'name', ucwords(lang('name', $translation)), $data, $errors, false, $config);
+                                echo set_input_form2('text', 'name', ucwords(lang('name', $translation)), $data, $errors, true, $config);
+
+                                echo set_input_form2('text', 'path', ucwords(lang('path', $translation)), $data, $errors, true, $config);
 
                                 $config = new \stdClass();
                                 $config->default = 'checked';
-                                echo set_input_form2('switch', 'status', ucwords(lang('status', $translation)), $data, $errors, false, $config);
+                                echo set_input_form2('switch', 'status', ucwords(lang('status', $translation)), $data, $errors, true, $config);
                             @endphp
 
                             <div class="ln_solid"></div>
@@ -86,4 +88,10 @@
 @section('script')
     <!-- Switchery -->
     @include('_form_element.switchery.script')
+    <script>
+        $('#name').on('keydown keyup', function (e) {
+            let str = convertStringToUrl($(this).val());
+            $('#path').val(str);
+        })
+    </script>
 @endsection

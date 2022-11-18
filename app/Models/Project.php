@@ -28,11 +28,13 @@ class Project extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'external_url',
         'thumbnail',
         'banner',
         'meta_data',
         'content',
         'status',
+        'path',
     ];
 
     /**
@@ -56,5 +58,13 @@ class Project extends Model
         } else {
             return $query->pluck($pluck);
         }
+    }
+
+    public function relates() {
+        return $this->hasMany(ProjectRelate::class, 'project_id');
+    }
+
+    public function images() {
+        return $this->hasMany(ProjectImage::class, 'project_id');
     }
 }

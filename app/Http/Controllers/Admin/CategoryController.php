@@ -90,18 +90,22 @@ class CategoryController extends Controller
 
         // LARAVEL VALIDATION
         $validation = [
-            'name' => 'required|max:191'
+            'name' => 'required|max:191',
+            'path' => 'required|unique:categories,path',
         ];
         $message = [
-            'required' => ':attribute ' . lang('field is required', $this->translation)
+            'required' => ':attribute ' . lang('field is required', $this->translation),
+            'unique' => ':attribute ' . lang('field is duplicate', $this->translation),
         ];
         $names = [
-            'image' => ucwords(lang('image', $this->translation))
+            'image' => ucwords(lang('image', $this->translation)),
+            'path' => ucwords(lang('path', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
 
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
+        $data->path = $request->path;
 
         // SET ORDER / ORDINAL
         $last = Category::query()->select('ordinal')->orderBy('ordinal', 'desc')->first();
@@ -182,22 +186,24 @@ class CategoryController extends Controller
         }
 
         // LARAVEL VALIDATION
-        if ($request->image) {
-            $validation = [
-                'name' => 'required|max:191'
-            ];
-            $message = [
-                'required' => ':attribute ' . lang('field is required', $this->translation)
-            ];
-            $names = [
-                'image' => ucwords(lang('name', $this->translation))
-            ];
-            $this->validate($request, $validation, $message, $names);
-        }
+        $validation = [
+            'name' => 'required|max:191',
+            'path' => 'required|unique:categories,path',
+        ];
+        $message = [
+            'required' => ':attribute ' . lang('field is required', $this->translation),
+            'unique' => ':attribute ' . lang('field is duplicate', $this->translation),
+        ];
+        $names = [
+            'name' => ucwords(lang('name', $this->translation)),
+            'path' => ucwords(lang('path', $this->translation)),
+        ];
+        $this->validate($request, $validation, $message, $names);
 
         // HELPER VALIDATION FOR PREVENT SQL INJECTION & XSS ATTACK
         $data->name = Helper::validate_input_text($request->name);
         $data->status = (int) $request->status;
+        $data->path = $request->path;
 
         // UPDATE THE DATA
         if ($data->save()) {

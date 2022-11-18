@@ -118,7 +118,7 @@
 
 @section('script')
     <script>
-        var AjaxSortingURL = '{{ route("admin.category.sorting") }}';
+        var AjaxSortingURL = '{{ route("admin.project.sorting") }}';
 
         $(document).ready(function () {
             {{ $function_get_data }}

@@ -18,7 +18,7 @@ use App\Models\system\SysLog;
 class RuleController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Rule';
+    protected $module = 'Rule';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'rule';
 

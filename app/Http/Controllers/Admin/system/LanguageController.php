@@ -16,7 +16,7 @@ use App\Models\system\SysLanguageMasterDetail;
 class LanguageController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Language';
+    protected $module = 'Language';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'language';
 

@@ -113,7 +113,7 @@
                                 $config->attributes = 'autocomplete="off"';
                                 echo set_input_form2('text', 'name', ucwords(lang('name', $translation)), $data, $errors, true, $config);
                                 echo set_input_form2('text', 'path', ucwords(lang('path', $translation)), $data, $errors, true, $config);
-                                echo set_input_form2('text', 'external_url', ucwords(lang('external_url', $translation)), $data, $errors, true, $config);
+                                echo set_input_form2('text', 'external_url', ucwords(lang('external url', $translation)), $data, $errors, false, $config);
 
                                 $config = new stdClass();
                                 $config->rows = 10;

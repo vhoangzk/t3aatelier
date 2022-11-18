@@ -7,7 +7,7 @@
         @foreach($banners as $banner)
             <div class="text-slider-inn middle-ux">
                 <h1 class="slider-headding slider-headding-1 headding-with-bg"
-                    data-bg="{{$banner->image}}">{{$banner->title}}</h1>
+                    data-bg="{{asset($banner->image)}}">{{$banner->title}}</h1>
 
                 <div class="slider-con">
                     <div class="slider-con-inn">
@@ -104,7 +104,7 @@
 
                                     <div class="brick-content ux-lazyload-wrap">
                                         <div class="ux-lazyload-bgimg ux-background-img"
-                                             data-bg="{{$project->thumbnail}}"></div>
+                                             data-bg="{{asset($project->banner)}}"></div>
                                     </div>
 
                                 </div><!--End inside-->

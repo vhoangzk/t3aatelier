@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 @include('web.layouts.head')
-<body
-    class="home page no-customize-support default-dark-logo pswp-light-skin responsive-ux page-template-masonry-body page-template-intro-above-list-body navi-hide page_from_top dark-logo header-sticky preload">
+<body class="@yield('body-class', 'home page no-customize-support default-dark-logo pswp-light-skin responsive-ux page-template-masonry-body page-template-intro-above-list-body navi-hide page_from_top dark-logo header-sticky preload')">
 
 <!--Page Loader-->
 <div class="page-loading fullscreen-wrap visible">
@@ -92,9 +91,16 @@
 </div>
 <!-- jQuery Library -->
 <script type='text/javascript' src='{{asset('js/library/jquery.min.js')}}'></script>
+<!-- jQuery Library -->
+<script type='text/javascript' src='{{asset('js/library/jquery-migrate.min.js')}}'></script>
 <!-- Main Js Plugin -->
 <script type='text/javascript' src='{{asset('js/main.min.js')}}'></script>
+<!-- Air. Theme Elements js(big number) -->
+<script type='text/javascript' src='{{asset('js/infographic.js')}}'></script>
+<!-- Air. Theme Elements js -->
+<script type='text/javascript' src='{{asset('js/theme.pagebuilder.js')}}'></script>
 <!-- Air. Theme main js -->
 <script type='text/javascript' src='{{asset('js/custom.theme.js')}}'></script>
+@yield('js')
 </body>
 </html>

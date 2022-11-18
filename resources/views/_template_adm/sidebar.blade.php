@@ -62,6 +62,48 @@
                     </a>
                 </li>
             @endif
+
+            @if (Helper::authorizing('Configs', 'View List')['status'] == 'true')
+                @php
+                    $menu_active = '';
+                    if(Helper::is_menu_active('/configs/')){
+                        $menu_active = 'current-page';
+                    }
+                @endphp
+                <li class="{{ $menu_active }}">
+                    <a href="{{ route('admin.configs.list') }}">
+                        <i class="fa fa-gears"></i> {{ ucwords(lang('configs', $translation)) }}
+                    </a>
+                </li>
+            @endif
+
+            @if (Helper::authorizing('About', 'View List')['status'] == 'true')
+                @php
+                    $menu_active = '';
+                    if(Helper::is_menu_active('/about/')){
+                        $menu_active = 'current-page';
+                    }
+                @endphp
+                <li class="{{ $menu_active }}">
+                    <a href="{{ route('admin.about') }}">
+                        <i class="fa"></i> {{ ucwords(lang('about', $translation)) }}
+                    </a>
+                </li>
+            @endif
+
+            @if (Helper::authorizing('Contact', 'View List')['status'] == 'true')
+                @php
+                    $menu_active = '';
+                    if(Helper::is_menu_active('/contact/')){
+                        $menu_active = 'current-page';
+                    }
+                @endphp
+                <li class="{{ $menu_active }}">
+                    <a href="{{ route('admin.contact.list') }}">
+                        <i class="fa"></i> {{ ucwords(lang('contact', $translation)) }}
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 

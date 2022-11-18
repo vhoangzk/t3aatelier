@@ -22,7 +22,7 @@
 
                 <div class="logo-wrap">
                     <div id="logo">
-                        <a class="logo-a" href="index.html" title="Air Theme">
+                        <a class="logo-a" href="{{route('web.home')}}" title="Air Theme">
                             <h1 class="logo-h1 logo-not-show-txt">Air Theme</h1>
                             <img class="logo-image logo-dark" src="{{asset('img/demo/logo_dark.png')}}" alt="Air Theme"/>
                             <span class="logo-light">

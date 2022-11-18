@@ -1,5 +1,5 @@
 @extends('web.layouts.master')
-
+@section('body-class', 'single single-post single-format-gallery default-dark-logo pswp-light-skin responsive-ux navi-hide page_from_top non_bg_header dark-logo single-portfolio-fullscreen-slider header-sticky gallery-show-social-share-body preload')
 @section('content')
     <!-- Main Content : List, text content ... -->
     <div id="content">
@@ -22,7 +22,7 @@
                                 @foreach($project->images as $image)
                                     <section class="item">
                                         <div class="carousel-img-wrap">
-                                            <img alt="{{$project->name}}" src="{{$image->url}}"
+                                            <img alt="{{$project->name}}" src="{{asset($image->url)}}"
                                                  class="single-fullwidth-slider-carousel-img">
                                         </div>
                                     </section>
@@ -106,7 +106,8 @@
                                 @foreach($meta as $item)
                                     <li class="gallery-info-property-li col-md-3 col-sm-3">
                                         <h3 class="gallery-info-property-item gallery-info-property-tit">{{ucwords(lang(strtolower(array_key_first($item)), $translation))}}</h3>
-                                        <div class="gallery-info-property-item gallery-info-property-con">{{$item[array_key_first($item)]}}</div>
+                                        <div
+                                            class="gallery-info-property-item gallery-info-property-con">{{$item[array_key_first($item)]}}</div>
                                     </li>
                                 @endforeach
                             @endif
@@ -125,34 +126,46 @@
                     <div class="blog-unit-meta-bottom">
                         <nav class="post-navi-single row">
                             <div class="container">
-                                <div class="post-navi-unit post-navi-unit-prev col-sm-5 col-md-5 col-xs-5">
-                                    <a href="project-item-standard-grid.html" title="Look Addict"
-                                       class="arrow-item arrow-prev"><span class="navi-arrow"></span><span
-                                            class="navi-title-tag">PREV</span><span class="navi-title-img"><img
-                                                width="150" height="150"
-                                                src="https://via.placeholder.com/150x150"
-                                                class="attachment-thumbnail size-thumbnail wp-post-image"
-                                                alt="Thumbnail Image"
-                                                srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w"
-                                                sizes="(max-width: 150px) 100vw, 150px"/></span></a>
-                                </div>
+                                @if($prevProject)
+                                    <div class="post-navi-unit post-navi-unit-prev col-sm-5 col-md-5 col-xs-5">
+                                        <a href="{{route('web.project', ['path' => $prevProject->path])}}"
+                                           title="{{$prevProject->name}}"
+                                           class="arrow-item arrow-prev">
+                                            <span class="navi-arrow"></span>
+                                            <span class="navi-title-tag">PREV</span>
+                                            <span class="navi-title-img">
+                                            <img width="150" height="150"
+                                                 src="{{asset($prevProject->banner)}}"
+                                                 class="attachment-thumbnail size-thumbnail wp-post-image"
+                                                 alt="{{$prevProject->name}} Image"
+                                                 sizes="(max-width: 150px) 100vw, 150px"/>
+                                        </span>
+                                        </a>
+                                    </div>
+                                @endif
 
                                 <div class="post-navi-go-back col-sm-2 col-md-2 col-xs-2">
-                                    <a class="post-navi-go-back-a" href="index.html" data-postid="61"><span
-                                            class="post-navi-go-back-a-inn"></span></a>
+                                    <a class="post-navi-go-back-a" href="{{route('web.home')}}" data-postid="61">
+                                        <span class="post-navi-go-back-a-inn"></span>
+                                    </a>
                                 </div>
 
-                                <div class="post-navi-unit post-navi-unit-next col-sm-5 col-md-5 col-xs-5">
-                                    <a href="project-item-fullscreen-slider.html" title="Sofisticada"
-                                       class="arrow-item arrow-next"><span class="navi-arrow"></span><span
-                                            class="navi-title-tag">NEXT</span><span class="navi-title-img"><img
-                                                width="150" height="150"
-                                                src="https://via.placeholder.com/150x150"
-                                                class="attachment-thumbnail size-thumbnail wp-post-image"
-                                                alt="Thumbnail Image"
-                                                srcset="https://via.placeholder.com/150x150 150w, https://via.placeholder.com/200x200 400w, https://via.placeholder.com/300x300 650w"
-                                                sizes="(max-width: 150px) 100vw, 150px"/></span></a>
-                                </div>
+                                @if($nextProject)
+                                    <div class="post-navi-unit post-navi-unit-next col-sm-5 col-md-5 col-xs-5">
+                                        <a href="{{route('web.project', ['path' => $nextProject->path])}}"
+                                           title="{{$nextProject->name}}"
+                                           class="arrow-item arrow-next">
+                                            <span class="navi-arrow"></span>
+                                            <span class="navi-title-tag">NEXT</span><span class="navi-title-img">
+                                            <img width="150" height="150"
+                                                 src="{{asset($nextProject->banner)}}"
+                                                 class="attachment-thumbnail size-thumbnail wp-post-image"
+                                                 alt="{{$nextProject->name}} Image"
+                                                 sizes="(max-width: 150px) 100vw, 150px"/>
+                                        </span>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         </nav>
                     </div><!--End blog-unit-meta-bottom-->

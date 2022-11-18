@@ -17,7 +17,7 @@ use App\Models\system\SysDivision;
 class DivisionController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Division';
+    protected $module = 'Division';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'office';
 

@@ -14,7 +14,7 @@ use App\Models\system\SysLog;
 class LogController extends Controller
 {
     // set this module
-    private $module = 'System Logs';
+    protected $module = 'System Logs';
 
     public function list()
     {

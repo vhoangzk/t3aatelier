@@ -15,7 +15,7 @@ use App\Models\system\SysLanguageMaster;
 class LangMasterController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Dictionary';
+    protected $module = 'Dictionary';
 
     // SET THIS OBJECT/ITEM NAME
     private $item = 'dictionary';

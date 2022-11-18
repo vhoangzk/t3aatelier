@@ -22,7 +22,7 @@ use App\Models\system\SysGroupBranch;
 class UsergroupController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Usergroup';
+    protected $module = 'Usergroup';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'admin group';
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Category;
 use App\Models\Project;
 use App\Services\HomeService;
@@ -42,8 +43,30 @@ class SiteController extends Controller
         $project = Project::query()
             ->with('images')
             ->where(['path' => $path])
-            ->first();
-        return view('web.pages.projects.details', compact('project'));
+            ->firstOrFail();
+        $prevProject = Project::query()->inRandomOrder()->whereKeyNot($project->id)->first();
+        $nextProject = Project::query()->inRandomOrder()->whereKeyNot($prevProject->id)->whereKeyNot($project->id)->first();
+        return view('web.pages.projects.details', compact('project', 'prevProject', 'nextProject'));
+    }
+
+    public function about() {
+        $data = About::query()->firstOrFail();
+        return view('web.pages.about.index', compact('data'));
+    }
+
+    public function contact() {
+        return view('web.pages.contact.index');
+    }
+
+    public function sendEmailContact(Request $request) {
+        $mailTo = 'vvhoangzk@yourmal.com';
+        $name = htmlspecialchars($request->get('idi_name'));
+        $mailFrom = htmlspecialchars($request->get('idi_mail'));
+        $subject = 'Website Feedback';
+        $message_text = htmlspecialchars($request->get('idi_text'));
+        $message =  'From: '.$name.'; Email: '.$mailFrom.' ; Message: '.$message_text;
+        $headers = 'From:' . $mailFrom . '\r\n';
+        mail($mailTo, $subject, $message, $headers);
     }
 
     public function blog(Request $request)

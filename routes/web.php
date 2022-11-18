@@ -33,13 +33,14 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/', 'SiteController@home')->name('web.home');
 
         // PROJECT
-        Route::get('/{path}', 'SiteController@projectDetail')->name('web.project');
+        Route::get('/p/{path}', 'SiteController@projectDetail')->name('web.project');
 
         // ABOUT
         Route::get('/about', 'SiteController@about')->name('web.about');
 
         // CONTACT
         Route::get('/contact', 'SiteController@contact')->name('web.contact');
+        Route::post('/sender', 'SiteController@sendEmailContact')->name('admin.contact.sendEmailContact');
 
         // BLOG
         Route::group(['prefix' => 'blog'], function () {
@@ -246,6 +247,28 @@ Route::group([
             Route::get('/deleted', 'ProjectController@list_deleted')->name('admin.project.deleted');
             Route::get('/get-data-deleted', 'ProjectController@get_data_deleted')->name('admin.project.get_data_deleted');
             Route::post('/restore', 'ProjectController@restore')->name('admin.project.restore');
+        });
+
+        // CONFIG
+        Route::group(['prefix' => 'configs'], function () {
+            Route::get('/', 'ProjectController@list')->name('admin.configs.list');
+            Route::get('/get-data', 'ProjectController@get_data')->name('admin.configs.get_data');
+            Route::get('/edit/{id}', 'ProjectController@edit')->name('admin.configs.edit');
+            Route::post('/do-edit/{id}', 'ProjectController@do_edit')->name('admin.configs.do_edit');
+        });
+
+        // ABOUT
+        Route::group(['prefix' => 'about'], function () {
+            Route::get('/', 'AboutController@edit')->name('admin.about');
+            Route::post('/do-edit/{id}', 'AboutController@do_edit')->name('admin.about.do_edit');
+        });
+
+        // CONTACT
+        Route::group(['prefix' => 'contact'], function () {
+            Route::get('/', 'ProjectController@list')->name('admin.contact.list');
+            Route::get('/get-data', 'ProjectController@get_data')->name('admin.contact.get_data');
+            Route::get('/edit/{id}', 'ProjectController@edit')->name('admin.contact.edit');
+            Route::post('/do-edit/{id}', 'ProjectController@do_edit')->name('admin.contact.do_edit');
         });
 
         // PRODUCT

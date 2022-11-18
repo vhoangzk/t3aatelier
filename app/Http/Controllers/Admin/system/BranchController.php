@@ -19,7 +19,7 @@ use App\Models\system\SysDivision;
 class BranchController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Branch';
+    protected $module = 'Branch';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'branch';
 

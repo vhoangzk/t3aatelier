@@ -14,7 +14,7 @@ use App\Models\system\SysConfig;
 class ConfigController extends Controller
 {
     // SET THIS MODULE
-    private $module = 'Config';
+    protected $module = 'Config';
     // SET THIS OBJECT/ITEM NAME
     private $item = 'config';
 

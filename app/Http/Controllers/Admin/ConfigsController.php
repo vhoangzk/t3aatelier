@@ -12,11 +12,12 @@ use App\Models\ProjectImage;
 use App\Models\ProjectRelate;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class ProjectController extends Controller
+class ConfigsController extends Controller
 {
     protected $module = 'Project';
     private $item = 'project';
@@ -152,11 +153,9 @@ class ProjectController extends Controller
         $meta_data = [];
         if ($request->meta_data) {
             foreach ($request->meta_data as $item) {
-                if (!empty($item['name']) && !empty($item['value'])) {
-                    $meta_data[] = [
-                        $item['name'] => $item['value']
-                    ];
-                }
+                $meta_data[] = [
+                    $item['name'] => $item['value']
+                ];
             }
         }
         $data->meta_data = json_encode($meta_data);
@@ -256,7 +255,6 @@ class ProjectController extends Controller
         // GET THE DATA BASED ON ID
         \DB::beginTransaction();
         $data = Project::query()->find($id);
-
         // CHECK IS DATA FOUND
         if (!$data) {
             // DATA NOT FOUND
@@ -334,11 +332,9 @@ class ProjectController extends Controller
         $meta_data = [];
         if ($request->meta_data) {
             foreach ($request->meta_data as $item) {
-                if (!empty($item['name']) && !empty($item['value'])) {
-                    $meta_data[] = [
-                        $item['name'] => $item['value']
-                    ];
-                }
+                $meta_data[] = [
+                    $item['name'] => $item['value']
+                ];
             }
         }
         $data->meta_data = json_encode($meta_data);

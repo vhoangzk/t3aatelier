@@ -249,26 +249,10 @@ Route::group([
             Route::post('/restore', 'ProjectController@restore')->name('admin.project.restore');
         });
 
-        // CONFIG
-        Route::group(['prefix' => 'configs'], function () {
-            Route::get('/', 'ProjectController@list')->name('admin.configs.list');
-            Route::get('/get-data', 'ProjectController@get_data')->name('admin.configs.get_data');
-            Route::get('/edit/{id}', 'ProjectController@edit')->name('admin.configs.edit');
-            Route::post('/do-edit/{id}', 'ProjectController@do_edit')->name('admin.configs.do_edit');
-        });
-
         // ABOUT
         Route::group(['prefix' => 'about'], function () {
             Route::get('/', 'AboutController@edit')->name('admin.about');
             Route::post('/do-edit/{id}', 'AboutController@do_edit')->name('admin.about.do_edit');
-        });
-
-        // CONTACT
-        Route::group(['prefix' => 'contact'], function () {
-            Route::get('/', 'ProjectController@list')->name('admin.contact.list');
-            Route::get('/get-data', 'ProjectController@get_data')->name('admin.contact.get_data');
-            Route::get('/edit/{id}', 'ProjectController@edit')->name('admin.contact.edit');
-            Route::post('/do-edit/{id}', 'ProjectController@do_edit')->name('admin.contact.do_edit');
         });
 
         // PRODUCT

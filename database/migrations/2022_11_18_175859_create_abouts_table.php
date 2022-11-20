@@ -21,8 +21,6 @@ class CreateAboutsTable extends Migration
             $table->text('meta')->nullable();
             $table->timestamps();
         });
-        $seeder = new AboutSeederInitial();
-        $seeder->run();
     }
 
     /**

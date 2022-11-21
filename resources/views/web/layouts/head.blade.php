@@ -1,5 +1,4 @@
 <head>
-    @dd($global_config)
     <title>@yield('title', $global_config->og_title)</title>
 
     <!--Meta-->

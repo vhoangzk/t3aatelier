@@ -39,7 +39,6 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/about', 'SiteController@about')->name('web.about');
 
         // CONTACT
-        Route::get('/contact', 'SiteController@contact')->name('web.contact');
         Route::post('/sender', 'SiteController@sendEmailContact')->name('admin.contact.sendEmailContact');
 
         // BLOG

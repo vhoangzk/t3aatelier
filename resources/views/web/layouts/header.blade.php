@@ -23,10 +23,10 @@
                 <div class="logo-wrap">
                     <div id="logo">
                         <a class="logo-a" href="{{route('web.home')}}" title="Air Theme">
-                            <h1 class="logo-h1 logo-not-show-txt">Air Theme</h1>
-                            <img class="logo-image logo-dark" src="{{asset('img/demo/logo_dark.png')}}" alt="Air Theme"/>
+                            <h1 class="logo-h1 logo-not-show-txt">@yield('title', $global_config->og_title)</h1>
+                            <img class="logo-image logo-dark" src="{{asset($global_config->app_logo_image)}}" alt="@yield('title', $global_config->og_title)"/>
                             <span class="logo-light">
-                                <img class="logo-image" src="{{asset('img/demo/logo_light.png')}}" alt="Air Theme"/>
+                                <img class="logo-image" src="{{asset($global_config->app_logo_image)}}" alt="@yield('title', $global_config->og_title)"/>
                             </span>
                         </a>
                     </div>

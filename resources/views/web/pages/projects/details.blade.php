@@ -1,5 +1,11 @@
 @extends('web.layouts.master')
 @section('body-class', 'single single-post single-format-gallery default-dark-logo pswp-light-skin responsive-ux navi-hide page_from_top non_bg_header dark-logo single-portfolio-fullscreen-slider header-sticky gallery-show-social-share-body preload')
+@section('title', $project->name)
+@section('og_title', $project->name)
+@section('og_description')
+    {!! $project->content !!}
+@endsection
+@section('og_image', asset($project->banner))
 @section('content')
     <!-- Main Content : List, text content ... -->
     <div id="content">

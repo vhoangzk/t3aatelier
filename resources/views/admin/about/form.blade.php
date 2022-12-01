@@ -40,6 +40,7 @@
                                 $config = new \stdClass();
                                 $config->attributes = 'autocomplete="off"';
                                 echo set_input_form2('text', 'title', ucwords(lang('title', $translation)), $data, $errors, true, $config);
+                                echo set_input_form2('text', 'email_to', ucwords(lang('email to', $translation)), $data, $errors, true, $config);
 
                                 $config = new \stdClass();
                                 $config->rows = 10;

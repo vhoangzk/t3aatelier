@@ -54,19 +54,23 @@ class SiteController extends Controller
         return view('web.pages.about.index', compact('data'));
     }
 
-    public function contact() {
-        return view('web.pages.contact.index');
-    }
-
     public function sendEmailContact(Request $request) {
-        $mailTo = 'vvhoangzk@yourmal.com';
+        $settings = About::query()->firstOrFail();
+        $mailTo = $settings->email_to;
         $name = htmlspecialchars($request->get('idi_name'));
         $mailFrom = htmlspecialchars($request->get('idi_mail'));
         $subject = 'Website Feedback';
         $message_text = htmlspecialchars($request->get('idi_text'));
         $message =  'From: '.$name.'; Email: '.$mailFrom.' ; Message: '.$message_text;
         $headers = 'From:' . $mailFrom . '\r\n';
-        mail($mailTo, $subject, $message, $headers);
+        $result = mail($mailTo, $subject, $message, $headers);
+        return response()->json([
+            'success' => $result,
+            'mailTo' => $mailTo,
+            'subject' => $subject,
+            'message' => $message,
+            'headers' => $headers,
+        ]);
     }
 
     public function blog(Request $request)

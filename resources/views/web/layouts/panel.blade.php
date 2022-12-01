@@ -20,7 +20,6 @@
                     </li>
                     <li id="menu-item-246" class="menu-item"><a href="{{route('web.home')}}">{{ucwords(lang('home', $translation))}}</a></li>
                     <li id="menu-item-256" class="menu-item"><a href="{{route('web.about')}}">{{ucwords(lang('about', $translation))}}</a></li>
-                    <li id="menu-item-247" class="menu-item"><a href="{{route('web.contact')}}">{{ucwords(lang('contact', $translation))}}</a></li>
                 </ul>
 
             </div>

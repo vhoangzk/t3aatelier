@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta property="og:title" content="@yield('og_title', $global_config->og_title)"/>
     <meta property="og:description" content="@yield('og_description', $global_config->meta_description)"/>
-    <meta property="og:url" content="{{route('web.home')}}"/>
+    <meta property="og:url" content="@yield('og_url', request()->fullUrl())"/>
     <meta property="og:site_name" content="@yield('og_site_name', $global_config->og_site_name)"/>
-    <meta property="og:image" content="@yield('og_image', $global_config->og_image)"/>
+    <meta property="og:image" content="@yield('og_image', asset($global_config->og_image))"/>
     <meta property="og:type" content="@yield('og_type', $global_config->og_type)"/>
 
     <meta name="description" content="{{ $global_config->meta_description }}">

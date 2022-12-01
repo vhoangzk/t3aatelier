@@ -98,6 +98,7 @@ class AboutController extends Controller
         // HELPER VALIDATION FOR PREVENT SQL INJECTION & XSS ATTACK
         $data->title = Helper::validate_input_text($request->title);
         $data->content = $request->get('content');
+        $data->email_to = $request->get('email_to');
 
         // UPDATE THE DATA
         if ($data->save()) {

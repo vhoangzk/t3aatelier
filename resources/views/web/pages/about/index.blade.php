@@ -279,18 +279,16 @@
                                     <div class="col-md-6 col-sm-6 moudle  bottom-space-no" style="">
 
                                         <div class="text_block ux-mod-nobg" data-animationend="fadeined">
-                                            <p>Te vix alii tritani electram. Te mel diam mucius mediocritatem. Sed
-                                                in dicunt qualisque. Mundi soleat mediocrem no quo, tempor mollis
-                                                sea et.</p>
+                                            <p>Mong muốn mang đến cho khách hàng sự trải nghiệm về không gian kiến trúc chất lượng và khác biệt</p>
                                             <p><br></p>
                                             <h6>Email Us</h6>
-                                            <p>hello@uiueux.com</p>
+                                            <p><a href="mailto:t3a.atelier@gmail.com" target="_blank">t3a.atelier@gmail.com</a></p>
                                             <p><br></p>
                                             <h6>Call Us</h6>
-                                            <p>+00 123 456 7890</p>
+                                            <p><a href="tel:0988068164" target="_blank">0988.068.164</a></p>
                                             <p><br></p>
                                             <h6>Address Us</h6>
-                                            <p>001&nbsp;Madison Ave, New York, NY</p>
+                                            <p>175 Đa Phúc, Tiên Dược, Sóc Sơn, Hà Nội</p>
                                         </div>
                                     </div>
 

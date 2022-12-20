@@ -160,8 +160,8 @@
                                             <div class="promote-mod bg-theme-color-1 promote-hover-bg-theme-color-9 "
                                                  data-animationend="" data-post="20160811-053914-197">
 
-                                                <a href="#getInTouch"><p class="promote-mod-a">Have a project for us? Get in
-                                                        touch.</p></a>
+                                                <p class="promote-mod-a">Have a project for us? Get in
+                                                    touch.</p>
 
                                             </div>
 
@@ -210,8 +210,8 @@
                                         <div class="col-md-12 col-sm-12 moudle bottom-space-no" style="">
 
                                             <div class="module-map-canvas" data-add="Corlears Hook Park"
-                                                 style="height: 400px;" data-l="21.02051893067876"
-                                                 data-r="105.76407879075886" data-zoom="17" data-pin="t"
+                                                 style="height: 400px;" data-l="21.25686807148103"
+                                                 data-r="105.8410091055244" data-zoom="17" data-pin="t"
                                                  data-view="map" data-dismouse="f" data-pin-custom=""
                                                  data-style=""></div>
 

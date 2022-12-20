@@ -158,6 +158,21 @@ class ConfigController extends Controller
             $data->app_logo_image = $dir_path . $image['data'];
         }
 
+        if ($request->app_loading) {
+            // PROCESSING IMAGE
+            $dir_path = 'uploads/config/';
+            $image_file = $request->file('app_loading');
+            $format_image_name = Helper::generate_slug($app_name) . '-loading-' . time();
+            $image = Helper::upload_image($dir_path, $image_file, true, $format_image_name);
+            if ($image['status'] != 'true') {
+                return back()
+                    ->withInput()
+                    ->with('error', lang($image['message'], $this->translation, $image['dynamic_objects']));
+            }
+            // GET THE UPLOADED IMAGE RESULT
+            $data->app_loading = $dir_path . $image['data'];
+        }
+
         $help = Helper::validate_input_text($request->help);
         if (!$help) {
             return back()
@@ -256,6 +271,14 @@ class ConfigController extends Controller
         // FB
         $fb_app_id = Helper::validate_input_text($request->fb_app_id);
         $data->fb_app_id = $fb_app_id;
+
+        //Social
+        $facebook_linked = Helper::validate_input_text($request->facebook_linked);
+        $data->facebook_linked = $facebook_linked;
+        $twitter_linked = Helper::validate_input_text($request->twitter_linked);
+        $data->twitter_linked = $twitter_linked;
+        $youtube_linked = Helper::validate_input_text($request->youtube_linked);
+        $data->youtube_linked = $youtube_linked;
 
         if ($data->save()) {
             // SUCCESS

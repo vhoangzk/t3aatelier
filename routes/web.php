@@ -254,6 +254,12 @@ Route::group([
             Route::post('/do-edit/{id}', 'AboutController@do_edit')->name('admin.about.do_edit');
         });
 
+        // FEEDBACK
+        Route::group(['prefix' => 'feedback'], function () {
+            Route::get('/', 'FeedbackController@list')->name('admin.feedback.list');
+            Route::get('/get-data', 'FeedbackController@get_data')->name('admin.feedback.get_data');
+        });
+
         // PRODUCT
         Route::group(['prefix' => 'product'], function () {
             Route::get('/', 'ProductController@list')->name('admin.product.list');

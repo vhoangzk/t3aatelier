@@ -76,6 +76,20 @@
                     </a>
                 </li>
             @endif
+
+            @if (Helper::authorizing('Feedback', 'View List')['status'] == 'true')
+                @php
+                    $menu_active = '';
+                    if(Helper::is_menu_active('/feedback/')){
+                        $menu_active = 'current-page';
+                    }
+                @endphp
+                <li class="{{ $menu_active }}">
+                    <a href="{{ route('admin.feedback.list') }}">
+                        <i class="fa"></i> {{ ucwords(lang('feedback', $translation)) }}
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 

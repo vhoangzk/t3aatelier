@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Category;
+use App\Models\Feedback;
 use App\Models\Project;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
@@ -55,21 +56,18 @@ class SiteController extends Controller
     }
 
     public function sendEmailContact(Request $request) {
-        $settings = About::query()->firstOrFail();
-        $mailTo = $settings->email_to;
         $name = htmlspecialchars($request->get('idi_name'));
-        $mailFrom = htmlspecialchars($request->get('idi_mail'));
-        $subject = 'Website Feedback';
-        $message_text = htmlspecialchars($request->get('idi_text'));
-        $message =  'From: '.$name.'; Email: '.$mailFrom.' ; Message: '.$message_text;
-        $headers = 'From:' . $mailFrom . '\r\n';
-        $result = mail($mailTo, $subject, $message, $headers);
+        $email = htmlspecialchars($request->get('idi_mail'));
+        $content = htmlspecialchars($request->get('idi_text'));
+
+        $feedback = new Feedback();
+        $feedback->name = $name;
+        $feedback->email = $email;
+        $feedback->content = $content;
+        $feedback->save();
+
         return response()->json([
-            'success' => $result,
-            'mailTo' => $mailTo,
-            'subject' => $subject,
-            'message' => $message,
-            'headers' => $headers,
+            'result' => true,
         ]);
     }
 

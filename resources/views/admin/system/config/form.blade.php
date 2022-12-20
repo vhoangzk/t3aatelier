@@ -36,7 +36,7 @@
                             // set_input_form2($type, $input_name, $label_name, $data, $errors, $required = false, $config = null)
                             echo set_input_form2('text', 'app_name', ucwords(lang('application name', $translation)), $data, $errors, true);
                             echo set_input_form2('text', 'app_version', ucwords(lang('application version', $translation)), $data, $errors, true);
-                            
+
                             $config = new \stdClass();
                             $config->info_text = '<i class="fa fa-info-circle"></i> &nbsp;Input base URL for this application/website that managed by this CMS.';
                             echo set_input_form2('text', 'app_url_site', ucwords(lang('application URL', $translation)), $data, $errors, true, $config);
@@ -44,7 +44,7 @@
                             $config = new \stdClass();
                             $config->info_text = '<i class="fa fa-info-circle"></i> &nbsp;Input Main URL, if this application used for manage microsite. <br>(If this is used by "blog.your-domain.com" as microsite, then input "your-domain.com" as Main URL)';
                             echo set_input_form2('text', 'app_url_main', ucwords(lang('main application URL', $translation)), $data, $errors, false, $config);
-                            
+
                             $config = new \stdClass();
                             $config->defined_data = ['ico', 'png'];
                             $config->info_text = '<i class="fa fa-info-circle"></i> &nbsp;Recommended to use "ico" & please make sure to upload image based on this type.';
@@ -71,6 +71,14 @@
                             }
 
                             $config = new \stdClass();
+                            $config->info = '<i class="fa fa-info-circle"></i> &nbsp;Recommended to use the square image, GIF transparent, min. 72 x 72px.';
+                            if (empty($data->app_loading)) {
+                                echo set_input_form2('image', 'app_loading', ucwords(lang('application loading image', $translation)), $data, $errors, true, $config);
+                            } else {
+                                echo set_input_form2('image', 'app_loading', ucwords(lang('application loading image', $translation)), $data, $errors, false, $config);
+                            }
+
+                            $config = new \stdClass();
                             $config->info_text = '<i class="fa fa-info-circle"></i> &nbsp;Enter a short description as Help popup content.';
                             $config->autosize = true;
                             echo set_input_form2('textarea', 'help', ucwords(lang('help', $translation)), $data, $errors, true, $config);
@@ -78,7 +86,7 @@
                             echo set_input_form2('text', 'powered', ucwords(lang('powered by', $translation)), $data, $errors, false);
                             echo set_input_form2('text', 'powered_url', ucwords(lang('powered URL', $translation)), $data, $errors, false);
                         @endphp
-                        
+
                         <div class="ln_solid"></div>
 
                         @php
@@ -144,7 +152,7 @@
                             $config->info_text = '<i class="fa fa-info-circle"></i> &nbsp;Twitter user ID of content creator.';
                             echo set_input_form2('text', 'twitter_creator_id', (lang('Twitter Creator ID', $translation)), $data, $errors, false, $config);
                         @endphp
-                        
+
                         <div class="ln_solid"></div>
 
                         @php
@@ -155,9 +163,20 @@
 
                         <div class="ln_solid"></div>
 
+                        @php
+                            $config = new \stdClass();
+                            echo set_input_form2('text', 'facebook_linked', (lang('Facebook Link', $translation)), $data, $errors, false, $config);
+
+                            $config = new \stdClass();
+                            echo set_input_form2('text', 'twitter_linked', (lang('Twitter Link', $translation)), $data, $errors, false, $config);
+
+                            $config = new \stdClass();
+                            echo set_input_form2('text', 'youtube_linked', (lang('youtube Link', $translation)), $data, $errors, false, $config);
+                        @endphp
+
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; 
+                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;
                                     @if (isset($data))
                                         {{ ucwords(lang('save', $translation)) }}
                                     @else

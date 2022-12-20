@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddSocialsCollumnToSysConfigTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('sys_config', function (Blueprint $table) {
+            $table->string('facebook_linked')->after('twitter_creator_id')->nullable();
+            $table->string('twitter_linked')->after('facebook_linked')->nullable();
+            $table->string('youtube_linked')->after('twitter_linked')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('sys_config', function (Blueprint $table) {
+            //
+        });
+    }
+}

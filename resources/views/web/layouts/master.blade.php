@@ -3,16 +3,16 @@
 @include('web.layouts.head')
 <body class="@yield('body-class', 'home page no-customize-support default-dark-logo pswp-light-skin responsive-ux page-template-masonry-body page-template-intro-above-list-body navi-hide page_from_top dark-logo header-sticky preload')">
 
-<!-- Messenger Plugin chat Code -->
+<!-- Messenger Chat Plugin Code -->
 <div id="fb-root"></div>
 
-<!-- Your Plugin chat code -->
+<!-- Your Chat Plugin code -->
 <div id="fb-customer-chat" class="fb-customerchat">
 </div>
 
 <script>
     var chatbox = document.getElementById('fb-customer-chat');
-    chatbox.setAttribute("page_id", "392419930898764");
+    chatbox.setAttribute("page_id", "279833508892468");
     chatbox.setAttribute("attribution", "biz_inbox");
 </script>
 

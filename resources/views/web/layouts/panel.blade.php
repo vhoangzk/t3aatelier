@@ -18,8 +18,10 @@
                             <li class="menu-item"><a href="home7.html">Open Items with Lightbox</a></li>
                         </ul>
                     </li>
-                    <li id="menu-item-246" class="menu-item"><a href="{{route('web.home')}}">{{ucwords(lang('home', $translation))}}</a></li>
-                    <li id="menu-item-256" class="menu-item"><a href="{{route('web.about')}}">{{ucwords(lang('about', $translation))}}</a></li>
+                    <li id="menu-item-246" class="menu-item"><a
+                            href="{{route('web.home')}}">{{ucwords(lang('home', $translation))}}</a></li>
+                    <li id="menu-item-256" class="menu-item"><a
+                            href="{{route('web.about')}}">{{ucwords(lang('about', $translation))}}</a></li>
                 </ul>
 
             </div>
@@ -45,23 +47,29 @@
                 <div class="socialmeida-mobile">
 
                     <ul class="socialmeida clearfix">
-                        <li class="socialmeida-li">
-                            <a title="Facebook" href="https://www.facebook.com/uiueux" class="socialmeida-a">
-                                <span class=""></span> <span class="socialmeida-text">Facebook</span>
-                            </a>
-                        </li>
+                        @if($global_config->facebook_linked)
+                            <li class="socialmeida-li">
+                                <a title="Facebook" href="{{$global_config->facebook_linked}}" class="socialmeida-a">
+                                    <span class=""></span> <span class="socialmeida-text">Facebook</span>
+                                </a>
+                            </li>
+                        @endif
 
-                        <li class="socialmeida-li">
-                            <a title="Twitter" href="https://twitter.com/uiueux" class="socialmeida-a">
-                                <span class=""></span> <span class="socialmeida-text">Twitter</span>
-                            </a>
-                        </li>
+                        @if($global_config->twitter_linked)
+                            <li class="socialmeida-li">
+                                <a title="Twitter" href="{{$global_config->twitter_linked}}" class="socialmeida-a">
+                                    <span class=""></span> <span class="socialmeida-text">Twitter</span>
+                                </a>
+                            </li>
+                        @endif
 
-                        <li class="socialmeida-li">
-                            <a title="Behance" href="https://www.behance.net/bwsm" class="socialmeida-a">
-                                <span class=""></span> <span class="socialmeida-text">Behance</span>
-                            </a>
-                        </li>
+                        @if($global_config->youtube_linked)
+                            <li class="socialmeida-li">
+                                <a title="Youtube" href="{{$global_config->youtube_linked}}" class="socialmeida-a">
+                                    <span class=""></span> <span class="socialmeida-text">Youtube</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
 
                 </div>

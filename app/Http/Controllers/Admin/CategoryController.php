@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -188,7 +189,10 @@ class CategoryController extends Controller
         // LARAVEL VALIDATION
         $validation = [
             'name' => 'required|max:191',
-            'path' => 'required|unique:categories,path',
+            'path' => [
+                'required',
+                Rule::unique('categories', 'path')->ignore($data->id),
+            ],
         ];
         $message = [
             'required' => ':attribute ' . lang('field is required', $this->translation),

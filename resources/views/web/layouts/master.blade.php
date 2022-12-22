@@ -38,7 +38,7 @@
 <div class="page-loading fullscreen-wrap visible">
     <div class="page-loading-inn">
         <div class="page-loading-transform">
-            <div class="site-loading-logo"><img src="{{$global_config->app_loading ?: asset('img/demo/logo-loading.png')}}" alt="{{$global_config->og_title}}"/></div>
+            <div class="site-loading-logo"><img src="{{$global_config->app_loading ? asset($global_config->app_loading) : asset('img/demo/logo-loading.png')}}" alt="{{$global_config->og_title}}"/></div>
         </div>
     </div>
 </div>

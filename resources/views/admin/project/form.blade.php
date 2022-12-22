@@ -126,7 +126,7 @@
                                     @php
                                         $i = 0;
                                     @endphp
-                                    @if(empty($data->meta_data))
+                                    @if(empty(json_decode($data->meta_data, true)))
                                         <div class="input-group meta-data-item" data-key="{{$i}}">
                                             <span class="input-group-addon">Name</span>
                                             <input type="text" class="form-control" data-attribute="name"

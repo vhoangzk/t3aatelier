@@ -1,5 +1,5 @@
 @extends('web.layouts.master')
-@section('body-class', 'single single-post single-format-gallery default-dark-logo pswp-light-skin responsive-ux navi-hide page_from_top non_bg_header dark-logo single-portfolio-fullscreen-slider header-sticky gallery-show-social-share-body preload')
+@section('body-class', 'single single-post single-format-gallery default-dark-logo pswp-light-skin responsive-ux navi-hide dark-logo single-portfolio-fullwidth-slider header-sticky gallery-show-social-share-body preload')
 @section('title', $project->name)
 @section('og_title', $project->name)
 @section('og_description')

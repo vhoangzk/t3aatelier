@@ -46,7 +46,11 @@ class SiteController extends Controller
             ->where(['path' => $path])
             ->firstOrFail();
         $prevProject = Project::query()->inRandomOrder()->whereKeyNot($project->id)->first();
-        $nextProject = Project::query()->inRandomOrder()->whereKeyNot($prevProject->id)->whereKeyNot($project->id)->first();
+        $nextProject = Project::query()->inRandomOrder();
+        if ($prevProject) {
+            $nextProject->whereKeyNot($prevProject->id);
+        }
+        $nextProject = $nextProject->whereKeyNot($project->id)->first();
         return view('web.pages.projects.details', compact('project', 'prevProject', 'nextProject'));
     }
 

@@ -23,6 +23,9 @@
     <link rel='stylesheet'
           href='https://fonts.googleapis.com/css?family=Poppins%3A400%2C300%7CLibre+Baskerville%3Aregular%2Citalic%2C700'
           type='text/css' media='all'/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link rel='stylesheet' href='{{asset('css/bootstrap.css')}}' type='text/css' media='screen'/>
@@ -45,6 +48,8 @@
 
     <!-- Air. Theme Main CSS -->
     <link rel='stylesheet' href='{{asset('css/style.css')}}' type='text/css' media='screen'/>
+
+    <link rel='stylesheet' href='{{asset('css/custom.css')}}' type='text/css' media='screen'/>
 
     @stack('css')
     <!-- IE hack -->

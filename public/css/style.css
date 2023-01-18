@@ -5802,7 +5802,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 /*Main font*/
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 18px;
@@ -5816,7 +5816,7 @@ input, textarea, select, button, legend, input[type="submit"], button {
 
 /* Mian Heading font */
 h1, h2, h3, h4, h5, h6, body.single .title-wrap-tit, .title-wrap-h1, .archive-grid-item-tit, .title-wrap-meta-a, .archive-grid-item-meta-item {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Source Serif Pro', serif;
     font-weight: 700;
     letter-spacing: 0.5px;
 }

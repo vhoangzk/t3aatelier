@@ -60,44 +60,6 @@
 
                         <div class="social-bar">
 
-                            <ul class="post_social post-meta-social">
-
-                                <li class="post-meta-social-li">
-                                    <a class="share postshareicon-facebook-wrap"
-                                       href="http://www.facebook.com/sharer.php?u=http://themes.uiueux.com/air/red-room/"
-                                       onclick="window.open('http://www.facebook.com/sharer.php?u=http://themes.uiueux.com/air/red-room/','Facebook','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;">
-                                        <span class="fa fa-facebook postshareicon-facebook"></span>
-                                    </a>
-                                </li>
-
-
-                                <li class="post-meta-social-li">
-                                    <a class="share postshareicon-twitter-wrap"
-                                       href="http://twitter.com/share?url=http://themes.uiueux.com/air/red-room/&amp;text=Red Room"
-                                       onclick="window.open('http://twitter.com/share?url=http://themes.uiueux.com/air/red-room/&amp;text=Red Room','Twitter share','width=600,height=300,left='+(screen.availWidth/2-300)+',top='+(screen.availHeight/2-150)+''); return false;">
-                                        <span class="fa fa-twitter postshareicon-twitter"></span>
-                                    </a>
-                                </li>
-
-
-                                <li class="post-meta-social-li">
-                                    <a class="share postshareicon-googleplus-wrap"
-                                       href="https://plus.google.com/share?url=http://themes.uiueux.com/air/red-room/"
-                                       onclick="window.open('https://plus.google.com/share?url=http://themes.uiueux.com/air/red-room/','', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                                        <span class="fa fa-google-plus postshareicon-googleplus"></span>
-                                    </a>
-                                </li>
-
-
-                                <li class="post-meta-social-li">
-                                    <a class="share postshareicon-pinterest-wrap" href="javascript:;"
-                                       onclick="javascript:window.open('http://pinterest.com/pin/create/bookmarklet/?url=http://themes.uiueux.com/air/red-room/&amp;is_video=false&amp;media=http://themes.uiueux.com/air/wp-content/uploads/sites/3/2016/06/Red-Room-010.jpg','', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                                        <span class="fa fa-pinterest  postshareicon-pinterest"></span>
-                                    </a>
-                                </li>
-
-                            </ul>
-
                         </div><!--End social-bar-->
 
                     </div><!--End gallery-post-des-->

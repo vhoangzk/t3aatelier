@@ -2,25 +2,8 @@
 
 @section('content')
 
-    <!-- Top Slider -->
-    <div class="top-slider top-slider-text">
-        @foreach($banners as $banner)
-            <div class="text-slider-inn middle-ux">
-                <h1 class="slider-headding slider-headding-1 headding-with-bg"
-                    data-bg="{{asset($banner->image)}}">{{$banner->title}}</h1>
-
-                <div class="slider-con">
-                    <div class="slider-con-inn">
-                        {{$banner->description}}
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div><!-- End top-slider -->
-
     <!-- Main Content : List, text content ... -->
-    <div id="content">
+    <div id="content" style="padding-top: 150px">
 
         <div class="content_wrap_outer fullwrap-layout">
 
@@ -29,7 +12,7 @@
                 <!--Portfolio Template-->
                 <div
                     class="container-masonry ux-portfolio-spacing-40 ux-portfolio-3col container ux-has-filter filter-center"
-                    data-col="3" data-spacer="40" data-template="intro-above">
+                    data-col="3" data-spacer="20" data-template="intro-above" style="width: 1300px;">
 
                     <!--Filter-->
                     <div class="clearfix filters">

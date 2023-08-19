@@ -121,6 +121,7 @@ class ProjectController extends Controller
             'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
+        ini_set('max_file_uploads', 100);
         if ($request->banner) {
             // PROCESSING IMAGE
             $dir_path = 'uploads/banner/';
@@ -284,6 +285,7 @@ class ProjectController extends Controller
             'category_id' => ucwords(lang('category_id', $this->translation)),
         ];
         $this->validate($request, $validation, $message, $names);
+        ini_set('max_file_uploads', 100);
         if ($request->banner) {
             // PROCESSING IMAGE
             $dir_path = 'uploads/banner/';
